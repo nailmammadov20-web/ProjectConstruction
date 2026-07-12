@@ -16,6 +16,8 @@ import { getServices } from "@/lib/repo/services";
 import { getProjects, getFeaturedProjects } from "@/lib/repo/projects";
 import { getNewsArticles } from "@/lib/repo/news";
 import { getCertificates } from "@/lib/repo/team";
+import { getSiteSettings } from "@/lib/repo/settings";
+import { getLocalized, type Locale } from "@/lib/types";
 
 export async function generateMetadata({
   params,
@@ -23,11 +25,11 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "hero" });
+  const settings = await getSiteSettings();
 
   return {
-    title: t("title"),
-    description: t("subtitle"),
+    title: getLocalized(settings.heroTitle, locale as Locale),
+    description: getLocalized(settings.heroSubtitle, locale as Locale),
     alternates: { canonical: `/${locale}` },
   };
 }
@@ -41,21 +43,22 @@ export default async function HomePage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "home" });
 
-  const [services, projects, newsArticles, certificates] = await Promise.all([
+  const [services, projects, newsArticles, certificates, settings] = await Promise.all([
     getServices(),
     getProjects(),
     getNewsArticles(),
     getCertificates(),
+    getSiteSettings(),
   ]);
 
   return (
     <>
-      <Hero />
+      <Hero settings={settings} />
       <AboutTeaser />
       <WhyChooseUs />
       <ServicesTeaser services={services} />
       <ProjectsTeaser projects={getFeaturedProjects(projects)} />
-      <StatsBand />
+      <StatsBand settings={settings} />
       <ProcessSection />
       <QualityTeaser certificates={certificates} />
       <TestimonialsSection />

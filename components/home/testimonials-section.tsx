@@ -1,11 +1,13 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { SectionTitle } from "@/components/section-title";
 import { TestimonialCarousel } from "@/components/testimonial-carousel";
+import { getTestimonials } from "@/lib/repo/testimonials";
 
-export function TestimonialsSection() {
-  const t = useTranslations("home");
+export async function TestimonialsSection() {
+  const t = await getTranslations("home");
+  const testimonials = await getTestimonials();
+
+  if (testimonials.length === 0) return null;
 
   return (
     <section className="section-padding bg-navy-950">
@@ -18,7 +20,7 @@ export function TestimonialsSection() {
           className="mx-auto"
         />
         <div className="mt-14">
-          <TestimonialCarousel />
+          <TestimonialCarousel testimonials={testimonials} />
         </div>
       </div>
     </section>

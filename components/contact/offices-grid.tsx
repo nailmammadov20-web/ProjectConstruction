@@ -3,11 +3,11 @@
 import { useLocale, useTranslations } from "next-intl";
 import type { Locale } from "@/i18n/routing";
 import { getLocalized } from "@/lib/types";
-import { offices } from "@/lib/data/team";
+import type { Office } from "@/lib/types";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { MapPin, Phone, Mail, Star } from "lucide-react";
 
-export function OfficesGrid() {
+export function OfficesGrid({ offices }: { offices: Office[] }) {
   const locale = useLocale() as Locale;
   const t = useTranslations("contact");
 

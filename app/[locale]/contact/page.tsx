@@ -7,7 +7,7 @@ import { OfficesGrid } from "@/components/contact/offices-grid";
 import { ContactForm } from "@/components/contact-form";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { placeholderImage } from "@/lib/images";
-import { offices } from "@/lib/data/team";
+import { getOffices } from "@/lib/repo/offices";
 import { siteConfig } from "@/lib/site-config";
 import { Reveal } from "@/components/motion/reveal";
 import { Mail, Phone, Clock } from "lucide-react";
@@ -40,6 +40,7 @@ export default async function ContactPage({
   const tCommon = await getTranslations({ locale, namespace: "common" });
 
   const heroImage = placeholderImage("contact-hero", 1920, 1080, "Reception desk at the Constructivegroup.az headquarters");
+  const offices = await getOffices();
   const hq = offices.find((o) => o.isHeadquarters) ?? offices[0];
 
   return (
@@ -71,15 +72,17 @@ export default async function ContactPage({
           </Reveal>
 
           <div>
-            <div className="overflow-hidden rounded-sm border border-border">
-              <iframe
-                src={hq.mapEmbedUrl}
-                title={t("mapTitle")}
-                className="h-72 w-full"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
+            {hq && (
+              <div className="overflow-hidden rounded-sm border border-border">
+                <iframe
+                  src={hq.mapEmbedUrl}
+                  title={t("mapTitle")}
+                  className="h-72 w-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            )}
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex items-center gap-3 rounded-sm border border-border bg-card p-5">
                 <Phone className="size-5 shrink-0 text-gold-500" />
@@ -115,7 +118,7 @@ export default async function ContactPage({
         <div className="container-wide">
           <SectionTitle eyebrow={t("eyebrow")} title={t("officesTitle")} />
           <div className="mt-14">
-            <OfficesGrid />
+            <OfficesGrid offices={offices} />
           </div>
         </div>
       </section>

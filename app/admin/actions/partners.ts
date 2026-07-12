@@ -20,7 +20,7 @@ export async function createPartner(_prevState: { error?: string }, formData: Fo
   } catch {
     return { error: "Tərəfdaş yaradıla bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/partners");
 }
 
@@ -32,7 +32,7 @@ export async function updatePartner(id: string, _prevState: { error?: string }, 
   } catch {
     return { error: "Tərəfdaş yenilənə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/partners");
 }
 
@@ -42,5 +42,5 @@ export async function deletePartner(id: string) {
   } catch {
     return { error: "Tərəfdaş silinə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
 }

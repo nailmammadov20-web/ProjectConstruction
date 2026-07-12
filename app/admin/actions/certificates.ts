@@ -22,7 +22,7 @@ export async function createCertificate(_prevState: { error?: string }, formData
   } catch {
     return { error: "Sertifikat yaradıla bilmədi. Kod artıq mövcud ola bilər." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/certificates");
 }
 
@@ -34,7 +34,7 @@ export async function updateCertificate(id: string, _prevState: { error?: string
   } catch {
     return { error: "Sertifikat yenilənə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/certificates");
 }
 
@@ -44,5 +44,5 @@ export async function deleteCertificate(id: string) {
   } catch {
     return { error: "Sertifikat silinə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
 }

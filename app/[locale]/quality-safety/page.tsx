@@ -10,6 +10,8 @@ import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { placeholderImage } from "@/lib/images";
 import { siteConfig } from "@/lib/site-config";
 import { getCertificates } from "@/lib/repo/team";
+import { getSiteSettings } from "@/lib/repo/settings";
+import { getLocalized } from "@/lib/types";
 import { ShieldCheck, Leaf, BadgeCheck } from "lucide-react";
 
 export async function generateMetadata({
@@ -42,11 +44,12 @@ export default async function QualitySafetyPage({
 
   const heroImage = placeholderImage("quality-hero", 1920, 1080, "Safety inspector reviewing checklist on an active site");
   const certificates = await getCertificates();
+  const settings = await getSiteSettings();
 
   const policies = [
-    { icon: ShieldCheck, title: t("hseTitle"), body: t("hseBody") },
-    { icon: BadgeCheck, title: t("qualityPolicyTitle"), body: t("qualityPolicyBody") },
-    { icon: Leaf, title: t("environmentTitle"), body: t("environmentBody") },
+    { icon: ShieldCheck, title: t("hseTitle"), body: getLocalized(settings.hseBody, locale) },
+    { icon: BadgeCheck, title: t("qualityPolicyTitle"), body: getLocalized(settings.qualityPolicyBody, locale) },
+    { icon: Leaf, title: t("environmentTitle"), body: getLocalized(settings.environmentBody, locale) },
   ];
 
   return (
@@ -67,7 +70,7 @@ export default async function QualitySafetyPage({
 
       <section className="relative overflow-hidden bg-navy-900 py-16 sm:py-20">
         <div className="container-wide">
-          <SafetyStats />
+          <SafetyStats settings={settings} />
         </div>
       </section>
 

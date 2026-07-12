@@ -6,11 +6,11 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import type { Locale } from "@/i18n/routing";
 import { getLocalized } from "@/lib/types";
-import { testimonials } from "@/lib/data/team";
+import type { Testimonial } from "@/lib/types";
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export function TestimonialCarousel() {
+export function TestimonialCarousel({ testimonials }: { testimonials: Testimonial[] }) {
   const locale = useLocale() as Locale;
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 6000, stopOnInteraction: true }),

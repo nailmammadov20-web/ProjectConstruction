@@ -67,12 +67,12 @@ app/
 lib/
   repo/                   async DB read layer the public site renders from
                            (getServices, getProjects, getNewsArticles, getLeadershipTeam,
-                           getCertificates, getPartners, getJobOpenings, + detail/related
-                           lookups) — wrapped in React's cache() to dedupe per-request
-  data/                   original static content, now used only as the seed source
+                           getCertificates, getPartners, getJobOpenings, getTestimonials,
+                           getOffices, getSiteSettings, + detail/related lookups) —
+                           wrapped in React's cache() to dedupe per-request
+  data/                   original static content, used only as the seed source
                            (prisma/seed.ts) for services/projects/news/team/certificates/
-                           partners/careers — offices and testimonials are NOT in the DB
-                           and are still imported directly from here
+                           partners/careers/testimonials/offices/site settings
   db.ts                   Prisma client singleton
   auth.ts                 admin session: bcrypt password check, JWT sign/verify, cookies
   admin-form-utils.ts     FormData → typed field parsing for admin Server Actions
@@ -88,7 +88,8 @@ components/
 
 prisma/
   schema.prisma           Service, Project, NewsArticle, TeamMember, Certificate, Partner,
-                           JobOpening, ContactSubmission, JobApplication, AdminUser
+                           JobOpening, ContactSubmission, JobApplication, AdminUser,
+                           Testimonial, Office, SiteSettings (singleton, id="main")
   seed.ts                 populates the DB from lib/data/*.ts + creates the admin user
 
 i18n/                     next-intl routing, navigation, request config
@@ -98,23 +99,28 @@ middleware.ts             branches on path: /admin → session check; everything
 
 ### How content flows
 
-The database is the source of truth for everything editable in the admin
-panel (Projects, Services, News, Team, Certificates, Partners, Careers,
-Contact messages, Job applications). Public pages are Server Components that
-call `lib/repo/*.ts` functions directly — there's no internal API layer.
-Client Components that need this data (nav mega-menu, search, filter grids,
-carousels) receive it as props from their nearest Server Component ancestor
-rather than fetching it themselves.
+The database is the source of truth for **everything** editable in the admin
+panel: Projects, Services, News, Team, Certificates, Partners, Testimonials,
+Offices, Careers, Contact messages, Job applications, and site-wide content
+via the `SiteSettings` singleton (hero headline/subtitle/video/stats, about
+intro/mission/vision, CEO message, achievements, company timeline, quality &
+safety policy text and safety stats). Public pages are Server Components
+that call `lib/repo/*.ts` functions directly — there's no internal API
+layer. Client Components that need this data (nav mega-menu, search, filter
+grids, carousels) receive it as props from their nearest Server Component
+ancestor rather than fetching it themselves.
 
-Editing content: **Admin Panel → edit/create/delete → `revalidatePath("/",
+Editing content: **Admin Panel → edit/create/delete → `revalidatePath("/[locale]",
 "layout")` → public pages re-render with fresh data** on next request. There
 is currently no draft/preview state — saves go live immediately.
+(`revalidatePath` is scoped to `/[locale]` rather than the true root `/`
+deliberately — the admin section has its own separate root layout, and
+revalidating from `/` was found to disturb the admin route tree's rendering.)
 
-`Testimonial` and `Office` are **not** database-backed (not in scope per the
-original build) — they're still plain arrays in `lib/data/team.ts`. Add them
-to `prisma/schema.prisma` + a repo module + admin CRUD pages following the
-same pattern as `Partner` (their closest analog) if you need to manage them
-from the panel too.
+Content that stays outside the CMS: nav labels, button text, breadcrumbs and
+other short UI chrome remain in `messages/{en,az,ru}.json` — translated via
+the i18n system rather than the admin panel, consistent with how most
+production CMS-driven sites separate "content" from "interface strings."
 
 ### Admin panel content model
 
@@ -151,9 +157,12 @@ localization.
   image fields, or a CMS-driven pipeline; `next.config.ts` already
   allow-lists `picsum.photos` and `images.unsplash.com` in
   `images.remotePatterns` — add your real asset host(s) there too.
-- **Hero video**: the homepage hero (`components/hero.tsx`) uses a still
-  image with a Ken Burns zoom; swap the `<Image>` for a `<video>` element for
-  real drone footage.
+- **Hero video**: set a direct `.mp4` URL in Admin → Sayt Tənzimləmələri →
+  "Video URL" and the homepage hero (`components/hero.tsx`) automatically
+  plays it (autoplay/muted/loop) with the hero image as poster; leave it
+  blank to keep the still-image Ken Burns zoom. There's no upload — host the
+  file yourself (S3, Vercel Blob, Mux, Cloudflare Stream, etc.) and paste the
+  URL.
 - **Résumé uploads**: the careers application form captures the selected
   file's *name* only (stored on `JobApplication.resumeFileName`) — it does
   not upload or store the file itself. Wire it to real object storage

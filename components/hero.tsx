@@ -1,36 +1,56 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { StatCounter } from "@/components/stat-counter";
-import { stats } from "@/lib/data/stats";
+import { getLocalized, type Locale, type SiteSettings } from "@/lib/types";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
-export function Hero() {
+export function Hero({ settings }: { settings: SiteSettings }) {
   const t = useTranslations("hero");
   const tStats = useTranslations("hero.stats");
+  const locale = useLocale() as Locale;
+
+  const stats = [
+    { key: "experience", value: settings.statExperience, suffix: "+" },
+    { key: "projects", value: settings.statProjects, suffix: "+" },
+    { key: "countries", value: settings.statCountries, suffix: "+" },
+    { key: "engineers", value: settings.statEngineers, suffix: "+" },
+  ] as const;
 
   return (
     <section className="relative flex min-h-[100svh] items-end overflow-hidden bg-navy-900">
       <div className="absolute inset-0">
-        <motion.div
-          initial={{ scale: 1.12 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 6, ease: [0.16, 1, 0.3, 1] }}
-          className="relative h-full w-full"
-        >
-          <Image
-            src="https://picsum.photos/seed/hero-drone-construction/2400/1500"
-            alt="Aerial drone view of an active construction site at golden hour"
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
+        {settings.heroVideoUrl ? (
+          <video
+            className="size-full object-cover"
+            src={settings.heroVideoUrl}
+            poster={settings.heroImage.src}
+            autoPlay
+            muted
+            loop
+            playsInline
           />
-        </motion.div>
+        ) : (
+          <motion.div
+            initial={{ scale: 1.12 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 6, ease: [0.16, 1, 0.3, 1] }}
+            className="relative h-full w-full"
+          >
+            <Image
+              src={settings.heroImage.src}
+              alt={settings.heroImage.alt}
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
+          </motion.div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/70 to-navy-950/40" />
         <div className="absolute inset-0 bg-navy-950/20 grain-overlay" />
       </div>
@@ -44,7 +64,7 @@ export function Hero() {
             className="mb-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-gold-400"
           >
             <span className="h-px w-8 bg-gold-400" />
-            {t("eyebrow")}
+            {getLocalized(settings.heroEyebrow, locale)}
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -52,7 +72,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl font-bold leading-[1.08] text-white text-balance sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
           >
-            {t("title")}
+            {getLocalized(settings.heroTitle, locale)}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -60,7 +80,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.32 }}
             className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg"
           >
-            {t("subtitle")}
+            {getLocalized(settings.heroSubtitle, locale)}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}

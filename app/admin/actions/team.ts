@@ -24,7 +24,7 @@ export async function createTeamMember(_prevState: { error?: string }, formData:
   } catch {
     return { error: "Üzv yaradıla bilmədi. Slug artıq mövcud ola bilər." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/team");
 }
 
@@ -36,7 +36,7 @@ export async function updateTeamMember(id: string, _prevState: { error?: string 
   } catch {
     return { error: "Üzv yenilənə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/team");
 }
 
@@ -46,5 +46,5 @@ export async function deleteTeamMember(id: string) {
   } catch {
     return { error: "Üzv silinə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
 }

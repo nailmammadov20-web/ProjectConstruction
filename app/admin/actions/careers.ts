@@ -25,7 +25,7 @@ export async function createJobOpening(_prevState: { error?: string }, formData:
   } catch {
     return { error: "Vakansiya yaradıla bilmədi. Slug artıq mövcud ola bilər." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/careers");
 }
 
@@ -37,7 +37,7 @@ export async function updateJobOpening(id: string, _prevState: { error?: string 
   } catch {
     return { error: "Vakansiya yenilənə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/careers");
 }
 
@@ -47,5 +47,5 @@ export async function deleteJobOpening(id: string) {
   } catch {
     return { error: "Vakansiya silinə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
 }

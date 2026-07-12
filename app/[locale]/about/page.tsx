@@ -11,9 +11,10 @@ import { LeadershipGrid } from "@/components/about/leadership-grid";
 import { CtaBand } from "@/components/cta-band";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { placeholderImage } from "@/lib/images";
-import { companyTimeline } from "@/lib/data/stats";
 import { siteConfig } from "@/lib/site-config";
 import { getLeadershipTeam } from "@/lib/repo/team";
+import { getSiteSettings } from "@/lib/repo/settings";
+import { getLocalized } from "@/lib/types";
 
 export async function generateMetadata({
   params,
@@ -22,10 +23,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about" });
+  const settings = await getSiteSettings();
 
   return {
     title: t("title"),
-    description: t("intro"),
+    description: getLocalized(settings.aboutIntro, locale as Locale),
     alternates: { canonical: `/${locale}/about` },
   };
 }
@@ -45,12 +47,7 @@ export default async function AboutPage({
 
   const heroImage = placeholderImage("about-hero", 1920, 1080, "Constructivegroup.az engineering team on-site reviewing plans");
   const team = await getLeadershipTeam();
-
-  const timelineEntries = companyTimeline.map((entry) => ({
-    year: entry.year,
-    title: entry.title,
-    body: entry.body,
-  }));
+  const settings = await getSiteSettings();
 
   return (
     <>
@@ -63,7 +60,7 @@ export default async function AboutPage({
       <PageHero
         eyebrow={t("eyebrow")}
         title={t("title")}
-        body={t("intro")}
+        body={getLocalized(settings.aboutIntro, locale)}
         image={heroImage}
         breadcrumbs={[{ label: tNav("about") }]}
       />
@@ -74,13 +71,13 @@ export default async function AboutPage({
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-600">
               {t("missionTitle")}
             </span>
-            <p className="mt-4 text-lg leading-relaxed text-foreground">{t("mission")}</p>
+            <p className="mt-4 text-lg leading-relaxed text-foreground">{getLocalized(settings.missionText, locale)}</p>
           </div>
           <div className="rounded-sm border border-border bg-navy-900 p-8 sm:p-10">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-400">
               {t("visionTitle")}
             </span>
-            <p className="mt-4 text-lg leading-relaxed text-white/85">{t("vision")}</p>
+            <p className="mt-4 text-lg leading-relaxed text-white/85">{getLocalized(settings.visionText, locale)}</p>
           </div>
         </div>
       </section>
@@ -98,18 +95,18 @@ export default async function AboutPage({
         <div className="container-wide">
           <SectionTitle eyebrow={t("timelineEyebrow")} title={t("timelineTitle")} />
           <div className="mt-14">
-            <Timeline entries={timelineEntries} />
+            <Timeline entries={settings.companyTimeline} />
           </div>
         </div>
       </section>
 
-      <CeoMessage locale={locale} />
+      <CeoMessage settings={settings} />
 
       <section className="section-padding">
         <div className="container-wide">
           <SectionTitle eyebrow={t("eyebrow")} title={t("achievementsTitle")} />
           <div className="mt-14">
-            <AchievementsList />
+            <AchievementsList achievements={settings.achievements} />
           </div>
         </div>
       </section>

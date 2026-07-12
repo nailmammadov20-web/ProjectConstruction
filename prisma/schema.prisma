@@ -145,3 +145,61 @@ model JobApplication {
   status         String   @default("new")
   createdAt      DateTime @default(now())
 }
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  quote     Json
+  author    String
+  role      Json
+  company   String
+  photo     Json?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Office {
+  id             String   @id @default(cuid())
+  city           Json
+  country        Json
+  address        Json
+  phone          String
+  email          String
+  isHeadquarters Boolean  @default(false)
+  mapEmbedUrl    String
+  order          Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+/// Singleton row (id is always "main") holding hero, about and quality/safety
+/// content that doesn't belong to a repeatable list of records.
+model SiteSettings {
+  id                String   @id @default("main")
+  heroEyebrow       Json
+  heroTitle         Json
+  heroSubtitle      Json
+  heroVideoUrl      String?
+  heroImage         Json
+  statExperience    Int      @default(22)
+  statProjects      Int      @default(350)
+  statCountries     Int      @default(18)
+  statEngineers     Int      @default(120)
+  aboutIntro        Json
+  missionText       Json
+  visionText        Json
+  ceoName           String
+  ceoRole           Json
+  ceoQuote          Json
+  ceoPhoto          Json
+  achievements      Json
+  companyTimeline   Json
+  hseBody           Json
+  qualityPolicyBody Json
+  environmentBody   Json
+  safetyLtifr       Float    @default(0.15)
+  safetyManHours    Float    @default(4.2)
+  safetyAuditedPct  Int      @default(100)
+  safetyFatalities  Int      @default(0)
+  updatedAt         DateTime @updatedAt
+}

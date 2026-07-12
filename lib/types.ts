@@ -154,6 +154,51 @@ export type StatItem = {
   suffix: string;
 };
 
+export type Achievement = {
+  year: string;
+  title: LocalizedText;
+};
+
+export type TimelineEntry = {
+  year: string;
+  title: LocalizedText;
+  body: LocalizedText;
+};
+
+export type SafetyStat = {
+  value: number;
+  suffix: string;
+  label: LocalizedText;
+};
+
+export type SiteSettings = {
+  heroEyebrow: LocalizedText;
+  heroTitle: LocalizedText;
+  heroSubtitle: LocalizedText;
+  heroVideoUrl?: string;
+  heroImage: ImageAsset;
+  statExperience: number;
+  statProjects: number;
+  statCountries: number;
+  statEngineers: number;
+  aboutIntro: LocalizedText;
+  missionText: LocalizedText;
+  visionText: LocalizedText;
+  ceoName: string;
+  ceoRole: LocalizedText;
+  ceoQuote: LocalizedText;
+  ceoPhoto: ImageAsset;
+  achievements: Achievement[];
+  companyTimeline: TimelineEntry[];
+  hseBody: LocalizedText;
+  qualityPolicyBody: LocalizedText;
+  environmentBody: LocalizedText;
+  safetyLtifr: number;
+  safetyManHours: number;
+  safetyAuditedPct: number;
+  safetyFatalities: number;
+};
+
 export function getLocalized(field: LocalizedText, locale: Locale): string {
   return field[locale] ?? field.en;
 }

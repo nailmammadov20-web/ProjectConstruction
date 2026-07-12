@@ -47,7 +47,7 @@ export async function createProject(_prevState: { error?: string }, formData: Fo
     if (error instanceof AdminFormError) return { error: error.message };
     return { error: "Layihə yaradıla bilmədi. Slug artıq mövcud ola bilər." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/projects");
 }
 
@@ -60,7 +60,7 @@ export async function updateProject(id: string, _prevState: { error?: string }, 
     if (error instanceof AdminFormError) return { error: error.message };
     return { error: "Layihə yenilənə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/projects");
 }
 
@@ -70,5 +70,5 @@ export async function deleteProject(id: string) {
   } catch {
     return { error: "Layihə silinə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
 }

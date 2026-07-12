@@ -34,7 +34,7 @@ export async function createArticle(_prevState: { error?: string }, formData: Fo
     if (error instanceof AdminFormError) return { error: error.message };
     return { error: "Məqalə yaradıla bilmədi. Slug artıq mövcud ola bilər." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/news");
 }
 
@@ -50,7 +50,7 @@ export async function updateArticle(id: string, _prevState: { error?: string }, 
     if (error instanceof AdminFormError) return { error: error.message };
     return { error: "Məqalə yenilənə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/news");
 }
 
@@ -60,5 +60,5 @@ export async function deleteArticle(id: string) {
   } catch {
     return { error: "Məqalə silinə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
 }

@@ -31,7 +31,7 @@ export async function createService(_prevState: { error?: string }, formData: Fo
     if (error instanceof AdminFormError) return { error: error.message };
     return { error: "Xidmət yaradıla bilmədi. Slug artıq mövcud ola bilər." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/services");
 }
 
@@ -44,7 +44,7 @@ export async function updateService(id: string, _prevState: { error?: string }, 
     if (error instanceof AdminFormError) return { error: error.message };
     return { error: "Xidmət yenilənə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
   redirect("/admin/services");
 }
 
@@ -54,5 +54,5 @@ export async function deleteService(id: string) {
   } catch {
     return { error: "Xidmət silinə bilmədi." };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
 }

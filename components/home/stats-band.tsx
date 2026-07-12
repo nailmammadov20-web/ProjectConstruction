@@ -3,10 +3,17 @@
 import { useTranslations } from "next-intl";
 import { StatCounter } from "@/components/stat-counter";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
-import { stats } from "@/lib/data/stats";
+import type { SiteSettings } from "@/lib/types";
 
-export function StatsBand() {
+export function StatsBand({ settings }: { settings: SiteSettings }) {
   const tStats = useTranslations("hero.stats");
+
+  const stats = [
+    { key: "experience", value: settings.statExperience, suffix: "+" },
+    { key: "projects", value: settings.statProjects, suffix: "+" },
+    { key: "countries", value: settings.statCountries, suffix: "+" },
+    { key: "engineers", value: settings.statEngineers, suffix: "+" },
+  ] as const;
 
   return (
     <section className="relative overflow-hidden bg-navy-900 py-16 sm:py-20">
