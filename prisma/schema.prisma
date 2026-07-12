@@ -1,0 +1,147 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Service {
+  id                  String   @id @default(cuid())
+  slug                String   @unique
+  icon                String
+  title               Json
+  shortDescription    Json
+  heroImage           Json
+  gallery             Json
+  description         Json
+  benefits            Json
+  process             Json
+  faq                 Json
+  relatedServiceSlugs String[]
+  order               Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Project {
+  id                  String   @id @default(cuid())
+  slug                String   @unique
+  title               Json
+  sector              String
+  location            Json
+  client              Json
+  area                String
+  completionDate      String
+  scope               Json
+  summary             Json
+  heroImage           Json
+  gallery             Json
+  beforeImage         Json?
+  afterImage          Json?
+  overview            Json
+  challenges          Json
+  solutions           Json
+  technologies        String[]
+  timeline            Json
+  featured            Boolean  @default(false)
+  relatedProjectSlugs String[]
+  order               Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model NewsArticle {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  category       String
+  title          Json
+  excerpt        Json
+  coverImage     Json
+  publishedAt    DateTime
+  readingMinutes Int
+  author         String
+  authorRole     Json
+  featured       Boolean  @default(false)
+  body           Json
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  role      Json
+  photo     Json
+  bio       Json?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Certificate {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  title     Json
+  issuer    String
+  year      String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Partner {
+  id        String   @id @default(cuid())
+  name      String
+  logo      Json?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model JobOpening {
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  title      Json
+  department String
+  location   Json
+  type       Json
+  summary    Json
+  isOpen     Boolean  @default(true)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model ContactSubmission {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  phone      String?
+  company    String?
+  department String
+  message    String
+  status     String   @default("new")
+  createdAt  DateTime @default(now())
+}
+
+model JobApplication {
+  id             String   @id @default(cuid())
+  name           String
+  email          String
+  phone          String
+  position       String
+  message        String
+  resumeFileName String?
+  status         String   @default("new")
+  createdAt      DateTime @default(now())
+}
