@@ -54,7 +54,7 @@ export default async function HomePage({
   return (
     <>
       <Hero settings={settings} projectsCount={projects.length} />
-      <AboutTeaser />
+      <AboutTeaser settings={settings} />
       <WhyChooseUs />
       <ServicesTeaser services={services} />
       <ProjectsTeaser projects={getFeaturedProjects(projects)} />

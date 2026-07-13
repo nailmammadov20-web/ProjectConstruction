@@ -185,6 +185,10 @@ export type SiteSettings = {
   statCountries: number;
   statEngineers: number;
   aboutIntro: LocalizedText;
+  aboutTeaserTitle: LocalizedText;
+  aboutHighlights: LocalizedText[];
+  aboutTeaserImage1: ImageAsset;
+  aboutTeaserImage2: ImageAsset;
   missionText: LocalizedText;
   visionText: LocalizedText;
   ceoName: string;

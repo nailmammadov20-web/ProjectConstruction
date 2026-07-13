@@ -223,6 +223,30 @@ async function main() {
         az: "Biz Qafqaz, Mərkəzi Asiya, Yaxın Şərq və Avropada mürəkkəb, yüksək dəyərli layihələr həyata keçirən beynəlxalq tikinti, mühəndislik və layihə idarəetmə qrupuyuq.",
         ru: "Мы — международная группа компаний в сфере строительства, инжиниринга и управления проектами, реализующая сложные и высокоценные проекты на Кавказе, в Центральной Азии, на Ближнем Востоке и в Европе.",
       },
+      aboutTeaserTitle: {
+        en: "Two decades of engineering excellence, delivered on every continent",
+        az: "Hər qitədə iyirmi ilə yaxın mühəndislik təcrübəsi",
+        ru: "Два десятилетия инженерного совершенства на всех континентах",
+      },
+      aboutHighlights: [
+        {
+          en: "22+ years delivering complex, high-value projects",
+          az: "22+ il mürəkkəb, yüksək dəyərli layihələrin icrası",
+          ru: "22+ года реализации сложных и высокоценных проектов",
+        },
+        {
+          en: "ISO 9001, 14001 & 45001 certified operations",
+          az: "ISO 9001, 14001 və 45001 sertifikatlı əməliyyatlar",
+          ru: "Сертифицированная деятельность по ISO 9001, 14001 и 45001",
+        },
+        {
+          en: "120+ engineers and specialists across 18 countries",
+          az: "18 ölkədə 120+ mühəndis və mütəxəssis",
+          ru: "120+ инженеров и специалистов в 18 странах",
+        },
+      ],
+      aboutTeaserImage1: placeholderImage("about-teaser-1", 900, 1100, "Engineers reviewing plans on an active site"),
+      aboutTeaserImage2: placeholderImage("about-teaser-2", 700, 620, "Close-up of structural steel detailing"),
       missionText: {
         en: "To deliver the built environment our clients envision — safely, on schedule, and to the highest international standards of engineering quality.",
         az: "Müştərilərimizin gördüyü tikili mühiti təhlükəsiz, vaxtında və ən yüksək beynəlxalq mühəndislik keyfiyyəti standartlarına uyğun təqdim etmək.",

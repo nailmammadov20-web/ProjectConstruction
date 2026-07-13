@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { readLocalized, readImage, readJson, AdminFormError } from "@/lib/admin-form-utils";
-import type { Achievement, TimelineEntry } from "@/lib/types";
+import type { Achievement, TimelineEntry, LocalizedText } from "@/lib/types";
 
 export async function updateSiteSettings(_prevState: { error?: string; success?: boolean }, formData: FormData) {
   try {
@@ -19,6 +19,10 @@ export async function updateSiteSettings(_prevState: { error?: string; success?:
       statCountries: Number(formData.get("statCountries") ?? 0) || 0,
       statEngineers: Number(formData.get("statEngineers") ?? 0) || 0,
       aboutIntro: readLocalized(formData, "aboutIntro"),
+      aboutTeaserTitle: readLocalized(formData, "aboutTeaserTitle"),
+      aboutHighlights: readJson<LocalizedText[]>(formData, "aboutHighlights_json", []),
+      aboutTeaserImage1: readImage(formData, "aboutTeaserImage1"),
+      aboutTeaserImage2: readImage(formData, "aboutTeaserImage2"),
       missionText: readLocalized(formData, "missionText"),
       visionText: readLocalized(formData, "visionText"),
       ceoName: String(formData.get("ceoName") ?? "").trim(),

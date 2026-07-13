@@ -8,6 +8,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Field, LocalizedTextField, ImageField } from "@/components/admin/form-fields";
 import { AchievementsRepeater } from "@/components/admin/achievements-repeater";
 import { TimelineRepeater } from "@/components/admin/timeline-repeater";
+import { LocalizedListRepeater } from "@/components/admin/localized-list-repeater";
 import { SubmitButton } from "@/components/admin/submit-button";
 import { FileUploadButton } from "@/components/admin/file-upload-button";
 import { cn } from "@/lib/utils";
@@ -146,6 +147,40 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
         </TabsContent>
 
         <TabsContent value="about" keepMounted className="mt-6 space-y-5">
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wide text-gold-600">
+              Ana Səhifə — &ldquo;Biz Kimik&rdquo; Bölməsi
+            </h3>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Ana səhifədə &ldquo;Biz Kimik&rdquo; bölməsində göstərilən başlıq, şəkillər və üstünlük siyahısı.
+            </p>
+          </div>
+          <LocalizedTextField
+            name="aboutTeaserTitle"
+            label="Başlıq"
+            defaultValue={settings.aboutTeaserTitle}
+            multiline
+            activeLocale={activeLocale}
+            onActiveLocaleChange={setActiveLocale}
+          />
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <ImageField name="aboutTeaserImage1" label="Əsas şəkil" defaultValue={settings.aboutTeaserImage1} />
+            <ImageField name="aboutTeaserImage2" label="Kiçik şəkil (üst-üstə)" defaultValue={settings.aboutTeaserImage2} />
+          </div>
+          <LocalizedListRepeater
+            name="aboutHighlights_json"
+            label="Üstünlük bəndləri"
+            defaultValue={settings.aboutHighlights}
+            hint="Yaşıl işarə ilə göstərilən qısa bəndlər (məs. '22+ il təcrübə')."
+            activeLocale={activeLocale}
+            onActiveLocaleChange={setActiveLocale}
+            addLabel="Bənd əlavə et"
+            emptyLabel="Hələ bənd əlavə edilməyib."
+          />
+
+          <div className="border-t border-border pt-5">
+            <h3 className="text-xs font-bold uppercase tracking-wide text-gold-600">Haqqımızda Səhifəsi</h3>
+          </div>
           <LocalizedTextField
             name="aboutIntro"
             label="Giriş mətni"

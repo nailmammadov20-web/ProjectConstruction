@@ -189,6 +189,10 @@ model SiteSettings {
   statCountries     Int      @default(18)
   statEngineers     Int      @default(120)
   aboutIntro        Json
+  aboutTeaserTitle  Json  @default("{}")
+  aboutHighlights   Json  @default("[]")
+  aboutTeaserImage1 Json  @default("{}")
+  aboutTeaserImage2 Json  @default("{}")
   missionText       Json
   visionText        Json
   ceoName           String
