@@ -182,7 +182,6 @@ model SiteSettings {
   heroVideoUrl      String?
   heroImage         Json
   statExperience    Int      @default(22)
-  statProjects      Int      @default(350)
   statCountries     Int      @default(18)
   statEngineers     Int      @default(120)
   aboutIntro        Json
@@ -202,4 +201,13 @@ model SiteSettings {
   safetyAuditedPct  Int      @default(100)
   safetyFatalities  Int      @default(0)
   updatedAt         DateTime @updatedAt
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid())
+  filename  String
+  mimeType  String
+  size      Int
+  data      Bytes
+  createdAt DateTime @default(now())
 }

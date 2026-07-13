@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { LocalizedTabInput } from "@/components/admin/localized-tab-input";
+import { FileUploadButton } from "@/components/admin/file-upload-button";
 import { ImageIcon } from "lucide-react";
 import type { LocalizedText, Locale } from "@/lib/types";
 
@@ -126,7 +127,7 @@ export function ImageField({
   defaultValue?: { src: string; alt: string; width: number; height: number };
   required?: boolean;
 }) {
-  const [preview, setPreview] = React.useState(defaultValue?.src ?? "");
+  const [src, setSrc] = React.useState(defaultValue?.src ?? "");
   const [errored, setErrored] = React.useState(false);
 
   return (
@@ -134,12 +135,12 @@ export function ImageField({
       <Label className="text-sm font-medium">{label}</Label>
       <div className="mt-2 flex gap-4">
         <div className="relative flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-sm border border-border bg-muted">
-          {preview && !errored ? (
+          {src && !errored ? (
             // Admin-supplied URLs can be any host, so a plain <img> avoids
             // next/image's remotePatterns allow-list for this preview only.
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={preview}
+              src={src}
               alt=""
               className="size-full object-cover"
               onError={() => setErrored(true)}
@@ -150,14 +151,26 @@ export function ImageField({
           )}
         </div>
         <div className="flex-1 space-y-2">
-          <Input
-            name={`${name}_src`}
-            placeholder="Şəkil URL (https://...)"
-            defaultValue={defaultValue?.src ?? ""}
-            onChange={(e) => setPreview(e.target.value)}
-            required={required}
-            className="rounded-sm"
-          />
+          <div className="flex gap-2">
+            <Input
+              name={`${name}_src`}
+              placeholder="Şəkil URL (https://...) və ya yükləyin"
+              value={src}
+              onChange={(e) => {
+                setSrc(e.target.value);
+                setErrored(false);
+              }}
+              required={required}
+              className="flex-1 rounded-sm"
+            />
+            <FileUploadButton
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              onUploaded={(url) => {
+                setSrc(url);
+                setErrored(false);
+              }}
+            />
+          </div>
           <Input
             name={`${name}_alt`}
             placeholder="Alt mətn (təsvir)"

@@ -16,7 +16,6 @@ export async function updateSiteSettings(_prevState: { error?: string; success?:
       heroVideoUrl: heroVideoUrl || null,
       heroImage: readImage(formData, "heroImage"),
       statExperience: Number(formData.get("statExperience") ?? 0) || 0,
-      statProjects: Number(formData.get("statProjects") ?? 0) || 0,
       statCountries: Number(formData.get("statCountries") ?? 0) || 0,
       statEngineers: Number(formData.get("statEngineers") ?? 0) || 0,
       aboutIntro: readLocalized(formData, "aboutIntro"),

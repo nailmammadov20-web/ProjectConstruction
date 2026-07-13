@@ -178,7 +178,6 @@ export type SiteSettings = {
   heroVideoUrl?: string;
   heroImage: ImageAsset;
   statExperience: number;
-  statProjects: number;
   statCountries: number;
   statEngineers: number;
   aboutIntro: LocalizedText;

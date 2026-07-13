@@ -9,14 +9,14 @@ import { StatCounter } from "@/components/stat-counter";
 import { getLocalized, type Locale, type SiteSettings } from "@/lib/types";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
-export function Hero({ settings }: { settings: SiteSettings }) {
+export function Hero({ settings, projectsCount }: { settings: SiteSettings; projectsCount: number }) {
   const t = useTranslations("hero");
   const tStats = useTranslations("hero.stats");
   const locale = useLocale() as Locale;
 
   const stats = [
     { key: "experience", value: settings.statExperience, suffix: "+" },
-    { key: "projects", value: settings.statProjects, suffix: "+" },
+    { key: "projects", value: projectsCount, suffix: "+" },
     { key: "countries", value: settings.statCountries, suffix: "+" },
     { key: "engineers", value: settings.statEngineers, suffix: "+" },
   ] as const;

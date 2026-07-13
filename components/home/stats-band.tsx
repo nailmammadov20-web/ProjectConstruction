@@ -5,12 +5,12 @@ import { StatCounter } from "@/components/stat-counter";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 import type { SiteSettings } from "@/lib/types";
 
-export function StatsBand({ settings }: { settings: SiteSettings }) {
+export function StatsBand({ settings, projectsCount }: { settings: SiteSettings; projectsCount: number }) {
   const tStats = useTranslations("hero.stats");
 
   const stats = [
     { key: "experience", value: settings.statExperience, suffix: "+" },
-    { key: "projects", value: settings.statProjects, suffix: "+" },
+    { key: "projects", value: projectsCount, suffix: "+" },
     { key: "countries", value: settings.statCountries, suffix: "+" },
     { key: "engineers", value: settings.statEngineers, suffix: "+" },
   ] as const;

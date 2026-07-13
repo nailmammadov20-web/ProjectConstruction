@@ -11,7 +11,6 @@ function toSettings(row: PrismaSiteSettings): SiteSettings {
     heroVideoUrl: row.heroVideoUrl ?? undefined,
     heroImage: row.heroImage as unknown as ImageAsset,
     statExperience: row.statExperience,
-    statProjects: row.statProjects,
     statCountries: row.statCountries,
     statEngineers: row.statEngineers,
     aboutIntro: row.aboutIntro as unknown as LocalizedText,

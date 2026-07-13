@@ -53,12 +53,12 @@ export default async function HomePage({
 
   return (
     <>
-      <Hero settings={settings} />
+      <Hero settings={settings} projectsCount={projects.length} />
       <AboutTeaser />
       <WhyChooseUs />
       <ServicesTeaser services={services} />
       <ProjectsTeaser projects={getFeaturedProjects(projects)} />
-      <StatsBand settings={settings} />
+      <StatsBand settings={settings} projectsCount={projects.length} />
       <ProcessSection />
       <QualityTeaser certificates={certificates} />
       <TestimonialsSection />

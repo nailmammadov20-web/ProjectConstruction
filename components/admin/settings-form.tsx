@@ -9,6 +9,7 @@ import { Field, LocalizedTextField, ImageField } from "@/components/admin/form-f
 import { AchievementsRepeater } from "@/components/admin/achievements-repeater";
 import { TimelineRepeater } from "@/components/admin/timeline-repeater";
 import { SubmitButton } from "@/components/admin/submit-button";
+import { FileUploadButton } from "@/components/admin/file-upload-button";
 import { cn } from "@/lib/utils";
 import type { SiteSettings, Locale } from "@/lib/types";
 import { Sparkles, Building2, UserCircle2, ShieldCheck } from "lucide-react";
@@ -29,6 +30,7 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
   const [state, formAction] = useActionState(action, {});
   const [activeTab, setActiveTab] = React.useState<(typeof tabs)[number]["value"]>("hero");
   const [activeLocale, setActiveLocale] = React.useState<Locale>("en");
+  const [heroVideoUrl, setHeroVideoUrl] = React.useState(settings.heroVideoUrl ?? "");
 
   useEffect(() => {
     if (state.success) toast.success("Tənzimləmələr yadda saxlanıldı.");
@@ -42,14 +44,14 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
 
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
-          <TabsList className="h-auto flex-wrap gap-1 bg-muted p-1">
+          <TabsList className="h-11 max-w-full gap-1 overflow-x-auto bg-muted p-1">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
                 <TabsTrigger
                   key={tab.value}
                   value={tab.value}
-                  className="h-9 gap-1.5 rounded-sm px-3 text-xs font-semibold text-foreground/80 hover:text-foreground data-active:text-foreground sm:text-sm dark:text-foreground/70 dark:hover:text-foreground dark:data-active:text-foreground"
+                  className="gap-1.5 rounded-sm px-3 text-xs font-semibold text-foreground/80 hover:text-foreground data-active:text-foreground sm:text-sm dark:text-foreground/70 dark:hover:text-foreground dark:data-active:text-foreground"
                 >
                   <Icon className="size-3.5" />
                   {tab.label}
@@ -105,23 +107,28 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
           <Field
             label="Video URL (könüllü)"
             htmlFor="heroVideoUrl"
-            hint="Drone/layihə videosu üçün birbaşa .mp4 keçidi. Boş saxlasanız, aşağıdakı şəkil göstərilir."
+            hint="Drone/layihə videosu üçün birbaşa .mp4 keçidi və ya faylı birbaşa yükləyin (maks. 4MB). Boş saxlasanız, aşağıdakı şəkil göstərilir. Daha böyük videolar üçün YouTube/Vimeo/Cloudflare Stream kimi xarici host istifadə edib keçidi bura yapışdırın."
           >
-            <Input
-              id="heroVideoUrl"
-              name="heroVideoUrl"
-              placeholder="https://.../drone-reel.mp4"
-              defaultValue={settings.heroVideoUrl ?? ""}
-              className="mt-2 rounded-sm"
-            />
+            <div className="mt-2 flex gap-2">
+              <Input
+                id="heroVideoUrl"
+                name="heroVideoUrl"
+                placeholder="https://.../drone-reel.mp4"
+                value={heroVideoUrl}
+                onChange={(e) => setHeroVideoUrl(e.target.value)}
+                className="flex-1 rounded-sm"
+              />
+              <FileUploadButton
+                accept="video/mp4,video/webm,video/quicktime"
+                onUploaded={setHeroVideoUrl}
+                label="Video yüklə"
+              />
+            </div>
           </Field>
           <ImageField name="heroImage" label="Ehtiyat / poster şəkli" defaultValue={settings.heroImage} />
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             <Field label="Təcrübə (il)" htmlFor="statExperience">
               <Input id="statExperience" name="statExperience" type="number" defaultValue={settings.statExperience} className="mt-2 rounded-sm" />
-            </Field>
-            <Field label="Layihələr" htmlFor="statProjects">
-              <Input id="statProjects" name="statProjects" type="number" defaultValue={settings.statProjects} className="mt-2 rounded-sm" />
             </Field>
             <Field label="Ölkələr" htmlFor="statCountries">
               <Input id="statCountries" name="statCountries" type="number" defaultValue={settings.statCountries} className="mt-2 rounded-sm" />
@@ -130,6 +137,9 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
               <Input id="statEngineers" name="statEngineers" type="number" defaultValue={settings.statEngineers} className="mt-2 rounded-sm" />
             </Field>
           </div>
+          <p className="text-xs text-muted-foreground">
+            &ldquo;Layihələr&rdquo; statistikası artıq burada redaktə edilmir — sayt bunu Layihələr bölməsindəki real qeyd sayından avtomatik hesablayır.
+          </p>
         </TabsContent>
 
         <TabsContent value="about" className="mt-6 space-y-5">

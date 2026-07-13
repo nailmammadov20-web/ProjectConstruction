@@ -203,7 +203,6 @@ async function main() {
       heroVideoUrl: null,
       heroImage: placeholderImage("hero-drone-construction", 2400, 1500, "Aerial drone view of an active construction site at golden hour"),
       statExperience: 22,
-      statProjects: 350,
       statCountries: 18,
       statEngineers: 120,
       aboutIntro: {

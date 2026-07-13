@@ -154,15 +154,21 @@ localization.
 
 - **Imagery**: every seeded photo is a deterministic `picsum.photos`
   placeholder (see `lib/images.ts`). Replace image URLs via the admin panel's
-  image fields, or a CMS-driven pipeline; `next.config.ts` already
-  allow-lists `picsum.photos` and `images.unsplash.com` in
-  `images.remotePatterns` — add your real asset host(s) there too.
+  image fields — paste a URL, or click "Yüklə" to upload a file directly
+  (JPEG/PNG/WEBP/GIF); `next.config.ts` already allow-lists `picsum.photos`
+  and `images.unsplash.com` in `images.remotePatterns` — add your real asset
+  host(s) there too if you link to external images.
 - **Hero video**: set a direct `.mp4` URL in Admin → Sayt Tənzimləmələri →
-  "Video URL" and the homepage hero (`components/hero.tsx`) automatically
-  plays it (autoplay/muted/loop) with the hero image as poster; leave it
-  blank to keep the still-image Ken Burns zoom. There's no upload — host the
-  file yourself (S3, Vercel Blob, Mux, Cloudflare Stream, etc.) and paste the
-  URL.
+  "Video URL", or upload a file directly ("Video yüklə") — the homepage hero
+  (`components/hero.tsx`) automatically plays it (autoplay/muted/loop) with
+  the hero image as poster; leave it blank to keep the still-image Ken Burns
+  zoom.
+- **Admin file uploads**: images/video uploaded from the admin panel are
+  stored as bytes in the `MediaAsset` table (same Neon Postgres database) and
+  served at `/api/media/[id]` — no external storage account required. Upload
+  size is capped at 4MB (`app/admin/actions/upload.ts`) to stay under
+  serverless function body-size limits; for larger video files, host
+  externally (YouTube, Vimeo, Cloudflare Stream) and paste the URL instead.
 - **Résumé uploads**: the careers application form captures the selected
   file's *name* only (stored on `JobApplication.resumeFileName`) — it does
   not upload or store the file itself. Wire it to real object storage
