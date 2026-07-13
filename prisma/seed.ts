@@ -198,10 +198,20 @@ async function main() {
     update: {},
     create: {
       id: "main",
-      heroEyebrow: { en: "Construction · Engineering · Project Management" },
-      heroTitle: { en: "Building the Infrastructure of Tomorrow" },
+      heroEyebrow: {
+        en: "Construction · Engineering · Project Management",
+        az: "Tikinti · Mühəndislik · Layihə İdarəetməsi",
+        ru: "Строительство · Инжиниринг · Управление проектами",
+      },
+      heroTitle: {
+        en: "Building the Infrastructure of Tomorrow",
+        az: "Sabahın İnfrastrukturunu Qururuq",
+        ru: "Строим Инфраструктуру Будущего",
+      },
       heroSubtitle: {
         en: "Constructivegroup.az delivers world-class construction, engineering and project management services across commercial, industrial and public infrastructure — engineered to international standards, built to last generations.",
+        az: "Constructivegroup.az kommersiya, sənaye və dövlət infrastrukturunda beynəlxalq standartlara uyğun tikinti, mühəndislik və layihə idarəetmə xidmətləri təqdim edir.",
+        ru: "Constructivegroup.az предоставляет услуги мирового класса в области строительства, инжиниринга и управления проектами в коммерческой, промышленной и государственной инфраструктуре — по международным стандартам, на десятилетия вперёд.",
       },
       heroVideoUrl: null,
       heroImage: placeholderImage("hero-drone-construction", 2400, 1500, "Aerial drone view of an active construction site at golden hour"),
@@ -210,29 +220,47 @@ async function main() {
       statEngineers: 120,
       aboutIntro: {
         en: "We are an international construction, engineering and project management group delivering complex, high-value projects across the Caucasus, Central Asia, the Middle East and Europe.",
+        az: "Biz Qafqaz, Mərkəzi Asiya, Yaxın Şərq və Avropada mürəkkəb, yüksək dəyərli layihələr həyata keçirən beynəlxalq tikinti, mühəndislik və layihə idarəetmə qrupuyuq.",
+        ru: "Мы — международная группа компаний в сфере строительства, инжиниринга и управления проектами, реализующая сложные и высокоценные проекты на Кавказе, в Центральной Азии, на Ближнем Востоке и в Европе.",
       },
       missionText: {
         en: "To deliver the built environment our clients envision — safely, on schedule, and to the highest international standards of engineering quality.",
+        az: "Müştərilərimizin gördüyü tikili mühiti təhlükəsiz, vaxtında və ən yüksək beynəlxalq mühəndislik keyfiyyəti standartlarına uyğun təqdim etmək.",
+        ru: "Воплощать видение наших клиентов в реальность — безопасно, в срок и по высочайшим международным стандартам инженерного качества.",
       },
       visionText: {
         en: "To be the most trusted construction and engineering partner across the regions we serve, recognised for integrity, innovation and technical excellence.",
+        az: "Xidmət göstərdiyimiz regionlarda dürüstlük, innovasiya və texniki mükəmməllik ilə tanınan ən etibarlı tikinti və mühəndislik tərəfdaşı olmaq.",
+        ru: "Быть самым надёжным партнёром в области строительства и инжиниринга в регионах присутствия, известным своей честностью, инновациями и техническим совершенством.",
       },
       ceoName: ceo.name,
-      ceoRole: ceo.role,
+      ceoRole: {
+        en: "Chief Executive Officer",
+        az: "Baş İcraçı Direktor",
+        ru: "Генеральный директор",
+      },
       ceoQuote: {
         en: "Every project we deliver carries our name and our word. In 22 years, we have never compromised on safety or quality to save a schedule — and that discipline is exactly why clients trust us with their most complex work.",
+        az: "Təhvil verdiyimiz hər layihə bizim adımızı və sözümüzü daşıyır. 22 il ərzində cədvələ görə heç vaxt təhlükəsizlik və ya keyfiyyətdən güzəştə getməmişik — və məhz bu intizam sayəsində müştərilər ən mürəkkəb işlərini bizə etibar edir.",
+        ru: "Каждый реализованный нами проект несёт наше имя и наше слово. За 22 года мы никогда не жертвовали безопасностью или качеством ради сроков — и именно эта дисциплина является причиной того, что клиенты доверяют нам свои самые сложные проекты.",
       },
       ceoPhoto: ceo.photo,
       achievements,
       companyTimeline,
       hseBody: {
         en: "We are committed to a zero-harm workplace, achieved through rigorous risk management, continuous training and a culture where every employee has the authority to stop unsafe work.",
+        az: "Biz sərt risk idarəetməsi, davamlı təlim və hər bir işçinin təhlükəsiz olmayan işi dayandırmaq səlahiyyətinə malik olduğu bir mədəniyyət vasitəsilə sıfır-zərər iş yerinə sadiqik.",
+        ru: "Мы стремимся к рабочему месту с нулевым уровнем травматизма, достигаемому за счёт строгого управления рисками, постоянного обучения и культуры, в которой каждый сотрудник вправе остановить небезопасную работу.",
       },
       qualityPolicyBody: {
         en: "Every project is delivered under a certified quality management system, with independent audits, structured inspection and test plans, and continuous improvement.",
+        az: "Hər layihə sertifikatlaşdırılmış keyfiyyət idarəetmə sistemi altında, müstəqil auditlər, strukturlaşdırılmış yoxlama və sınaq planları və davamlı təkmilləşdirmə ilə həyata keçirilir.",
+        ru: "Каждый проект реализуется в рамках сертифицированной системы менеджмента качества с независимыми аудитами, структурированными планами контроля и испытаний, а также постоянным совершенствованием.",
       },
       environmentBody: {
         en: "We minimise environmental impact through responsible resource management, waste reduction and sustainable construction methods across all operations.",
+        az: "Biz bütün əməliyyatlarımızda məsuliyyətli resurs idarəetməsi, tullantıların azaldılması və davamlı tikinti metodları vasitəsilə ətraf mühitə təsiri minimuma endiririk.",
+        ru: "Мы минимизируем воздействие на окружающую среду за счёт ответственного управления ресурсами, сокращения отходов и устойчивых методов строительства во всех наших операциях.",
       },
       safetyLtifr: 0.15,
       safetyManHours: 4.2,
