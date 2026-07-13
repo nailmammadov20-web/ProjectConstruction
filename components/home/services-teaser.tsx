@@ -7,6 +7,7 @@ import { SectionTitle } from "@/components/section-title";
 import { ServiceCard } from "@/components/service-card";
 import { Reveal } from "@/components/motion/reveal";
 import type { Service } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
 export function ServicesTeaser({ services }: { services: Service[] }) {
@@ -30,9 +31,13 @@ export function ServicesTeaser({ services }: { services: Service[] }) {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
           {services.slice(0, 6).map((service, index) => (
-            <ServiceCard key={service.slug} service={service} index={index} />
+            // Only the first 4 show on mobile — a 6-card single-column stack
+            // made the homepage excessively long on small screens.
+            <div key={service.slug} className={cn(index >= 4 && "hidden sm:block")}>
+              <ServiceCard service={service} index={index} />
+            </div>
           ))}
         </div>
       </div>

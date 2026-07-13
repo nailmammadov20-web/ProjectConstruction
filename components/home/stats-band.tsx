@@ -16,7 +16,10 @@ export function StatsBand({ settings, projectsCount }: { settings: SiteSettings;
   ] as const;
 
   return (
-    <section className="relative overflow-hidden bg-navy-900 py-16 sm:py-20">
+    // Hidden below sm: — this repeats the same 4 stats already shown in the
+    // Hero section immediately above; keeping both on mobile is pure
+    // duplication with no added information.
+    <section className="relative hidden overflow-hidden bg-navy-900 py-16 sm:block sm:py-20">
       <div className="pointer-events-none absolute inset-0 opacity-[0.04]" aria-hidden>
         <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,white,transparent_45%)]" />
       </div>

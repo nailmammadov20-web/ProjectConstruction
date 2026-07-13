@@ -7,6 +7,7 @@ import { SectionTitle } from "@/components/section-title";
 import { ProjectCard } from "@/components/project-card";
 import { Reveal } from "@/components/motion/reveal";
 import type { Project } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
 export function ProjectsTeaser({ projects }: { projects: Project[] }) {
@@ -36,9 +37,12 @@ export function ProjectsTeaser({ projects }: { projects: Project[] }) {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
           {featured.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
+            // Only the first 2 show on mobile — see ServicesTeaser for the same trim.
+            <div key={project.slug} className={cn(index >= 2 && "hidden sm:block")}>
+              <ProjectCard project={project} index={index} />
+            </div>
           ))}
         </div>
       </div>

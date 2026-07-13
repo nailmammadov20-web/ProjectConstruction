@@ -170,7 +170,7 @@
     @apply mx-auto w-full max-w-4xl px-6;
   }
   .section-padding {
-    @apply py-20 sm:py-24 lg:py-28;
+    @apply py-14 sm:py-24 lg:py-28;
   }
   .text-balance {
     text-wrap: balance;
