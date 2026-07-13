@@ -17,6 +17,9 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
   const locale = useLocale() as Locale;
   const [active, setActive] = React.useState(0);
 
+  if (entries.length === 0) return null;
+  const current = entries[Math.min(active, entries.length - 1)];
+
   return (
     <div className="grid gap-10 lg:grid-cols-[220px_1fr]">
       <div className="flex gap-3 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0">
@@ -38,13 +41,13 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
 
       <Reveal key={active} className="rounded-sm border border-border bg-card p-8 sm:p-10">
         <span className="text-sm font-semibold uppercase tracking-widest text-gold-600">
-          {entries[active].year}
+          {current.year}
         </span>
         <h3 className="mt-3 text-2xl font-bold text-foreground">
-          {getLocalized(entries[active].title, locale)}
+          {getLocalized(current.title, locale)}
         </h3>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
-          {getLocalized(entries[active].body, locale)}
+          {getLocalized(current.body, locale)}
         </p>
       </Reveal>
     </div>
