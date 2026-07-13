@@ -32,11 +32,11 @@ export function ProcessTimeline() {
           inset of half a column's share of the width lands exactly on them). */}
       <div className="pointer-events-none absolute top-[52px] inset-x-[7.15%] z-0 hidden h-px bg-gradient-to-r from-gold-500/70 via-gold-500/30 to-gold-500/70 lg:block" />
 
-      <div className="hide-scrollbar flex gap-4 overflow-x-auto pb-4 lg:grid lg:grid-cols-7 lg:gap-4 lg:overflow-visible">
+      <div className="hide-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:-mx-10 md:px-10 lg:mx-0 lg:grid lg:grid-cols-7 lg:gap-4 lg:overflow-visible lg:px-0">
         {steps.map((step, index) => {
           const Icon = step.icon;
           return (
-            <Reveal key={step.key} delay={index * 0.07} className="w-[200px] shrink-0 lg:w-auto">
+            <Reveal key={step.key} delay={index * 0.07} className="w-[200px] shrink-0 snap-start lg:w-auto">
               <div className="group relative z-10 flex h-full flex-col items-center rounded-sm border border-border bg-card px-5 pb-6 pt-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-500/50 hover:shadow-xl">
                 <div className="relative flex size-12 items-center justify-center rounded-full bg-navy-900 text-gold-400 shadow-[0_0_0_5px_var(--card)] transition-colors duration-300 group-hover:bg-gold-500 group-hover:text-navy-900">
                   <Icon className="size-5" />
