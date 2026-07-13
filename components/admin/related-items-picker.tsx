@@ -4,18 +4,20 @@ import * as React from "react";
 import { Label } from "@/components/ui/label";
 import { Search } from "lucide-react";
 
-export function RelatedProjectsPicker({
+export function RelatedItemsPicker({
   name,
   label,
   options,
   defaultValue,
   hint,
+  searchPlaceholder = "Axtar...",
 }: {
   name: string;
   label: string;
   options: { slug: string; title: string }[];
   defaultValue: string[];
   hint?: string;
+  searchPlaceholder?: string;
 }) {
   const [selected, setSelected] = React.useState<string[]>(defaultValue);
   const [query, setQuery] = React.useState("");
@@ -36,7 +38,7 @@ export function RelatedProjectsPicker({
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Layihə axtar..."
+            placeholder={searchPlaceholder}
             className="flex-1 border-0 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
           />
         </div>

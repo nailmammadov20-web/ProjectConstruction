@@ -8,7 +8,7 @@ import { GalleryRepeater } from "@/components/admin/gallery-repeater";
 import { LocalizedListRepeater } from "@/components/admin/localized-list-repeater";
 import { ProjectMilestoneRepeater } from "@/components/admin/project-milestone-repeater";
 import { TagInput } from "@/components/admin/tag-input";
-import { RelatedProjectsPicker } from "@/components/admin/related-projects-picker";
+import { RelatedItemsPicker } from "@/components/admin/related-items-picker";
 import { SubmitButton } from "@/components/admin/submit-button";
 import { cn } from "@/lib/utils";
 import { sectors } from "@/lib/repo/projects";
@@ -173,12 +173,13 @@ export function ProjectForm({
             hint="Yazıb Enter basın (məs. BIM, Drone Survey)."
             placeholder="Texnologiya yazın..."
           />
-          <RelatedProjectsPicker
+          <RelatedItemsPicker
             name="relatedProjectSlugs"
             label="Əlaqəli layihələr"
             options={relatedOptions}
             defaultValue={project?.relatedProjectSlugs ?? []}
             hint="Bu layihə ilə əlaqəli göstəriləcək digər layihələri seçin."
+            searchPlaceholder="Layihə axtar..."
           />
         </div>
       </section>

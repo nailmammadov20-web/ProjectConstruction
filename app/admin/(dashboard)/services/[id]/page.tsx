@@ -3,7 +3,8 @@ import { prisma } from "@/lib/db";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { ServiceForm } from "@/components/admin/service-form";
 import { updateService } from "@/app/admin/actions/services";
-import type { Service, ImageAsset, LocalizedText, ServiceFAQ } from "@/lib/types";
+import { getServices } from "@/lib/repo/services";
+import { getLocalized, type Service, type ImageAsset, type LocalizedText, type ServiceFAQ } from "@/lib/types";
 
 export default async function EditServicePage({
   params,
@@ -28,10 +29,15 @@ export default async function EditServicePage({
     relatedServiceSlugs: row.relatedServiceSlugs,
   };
 
+  const services = await getServices();
+  const relatedOptions = services
+    .filter((s) => s.slug !== row.slug)
+    .map((s) => ({ slug: s.slug, title: getLocalized(s.title, "en") }));
+
   return (
     <div>
       <AdminPageHeader title="Xidməti redaktə et" description={row.slug} />
-      <ServiceForm service={service} action={updateService.bind(null, id)} />
+      <ServiceForm service={service} action={updateService.bind(null, id)} relatedOptions={relatedOptions} />
     </div>
   );
 }
