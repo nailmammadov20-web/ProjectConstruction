@@ -3,37 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  Settings,
-  Building2,
-  HardHat,
-  Newspaper,
-  Users,
-  Award,
-  Handshake,
-  Briefcase,
-  MapPin,
-  Quote,
-  Mail,
-  FileText,
-} from "lucide-react";
-
-const navItems = [
-  { href: "/admin", label: "İdarə paneli", icon: LayoutDashboard, exact: true },
-  { href: "/admin/settings", label: "Sayt Tənzimləmələri", icon: Settings },
-  { href: "/admin/projects", label: "Layihələr", icon: Building2 },
-  { href: "/admin/services", label: "Xidmətlər", icon: HardHat },
-  { href: "/admin/news", label: "Xəbərlər", icon: Newspaper },
-  { href: "/admin/team", label: "Komanda", icon: Users },
-  { href: "/admin/certificates", label: "Sertifikatlar", icon: Award },
-  { href: "/admin/partners", label: "Tərəfdaşlar", icon: Handshake },
-  { href: "/admin/testimonials", label: "Müştəri Rəyləri", icon: Quote },
-  { href: "/admin/offices", label: "Ofislər", icon: MapPin },
-  { href: "/admin/careers", label: "Vakansiyalar", icon: Briefcase },
-  { href: "/admin/messages", label: "Mesajlar", icon: Mail },
-  { href: "/admin/applications", label: "Müraciətlər", icon: FileText },
-];
+import { navItems } from "@/components/admin/nav-items";
 
 export function AdminSidebar() {
   const pathname = usePathname();
