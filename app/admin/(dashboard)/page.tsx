@@ -40,18 +40,18 @@ export default async function AdminDashboardPage() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {cards.map((card) => (
           <Link
             key={card.label}
             href={card.href}
-            className="rounded-sm border border-border bg-card p-6 transition-shadow hover:shadow-md"
+            className="rounded-sm border border-border bg-card p-4 transition-shadow hover:shadow-md sm:p-6"
           >
             <div className="flex items-center justify-between">
               <card.icon className="size-6 text-gold-600" />
               {card.highlight && <span className="size-2 rounded-full bg-destructive" />}
             </div>
-            <p className="mt-4 text-3xl font-bold text-foreground">{card.value}</p>
+            <p className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">{card.value}</p>
             <p className="mt-1 text-sm text-muted-foreground">{card.label}</p>
           </Link>
         ))}

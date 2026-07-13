@@ -37,7 +37,7 @@ export function ServiceForm({
         <p className="rounded-sm bg-destructive/10 px-4 py-3 text-sm text-destructive">{state.error}</p>
       )}
 
-      <div className="flex items-center justify-end gap-1 rounded-sm border border-border bg-card p-1 sm:w-fit">
+      <div className="ml-auto flex w-fit items-center justify-end gap-1 rounded-sm border border-border bg-card p-1">
         {(["en", "az", "ru"] as Locale[]).map((loc) => (
           <button
             key={loc}

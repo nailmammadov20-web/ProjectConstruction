@@ -12,8 +12,8 @@ export default async function AdminNewsPage() {
     <div>
       <AdminPageHeader title="Xəbərlər" description={`${articles.length} məqalə`} newHref="/admin/news/new" newLabel="Yeni məqalə" />
 
-      <div className="overflow-hidden rounded-sm border border-border bg-card">
-        <table className="w-full text-left text-sm">
+      <div className="overflow-x-auto rounded-sm border border-border bg-card">
+        <table className="w-full min-w-[560px] text-left text-sm">
           <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
             <tr>
               <th className="px-5 py-3 font-semibold">Başlıq</th>

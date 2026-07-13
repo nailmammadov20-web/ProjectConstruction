@@ -13,8 +13,8 @@ export default async function AdminCareersPage() {
     <div>
       <AdminPageHeader title="Vakansiyalar" description={`${jobs.length} vakansiya`} newHref="/admin/careers/new" newLabel="Yeni vakansiya" />
 
-      <div className="overflow-hidden rounded-sm border border-border bg-card">
-        <table className="w-full text-left text-sm">
+      <div className="overflow-x-auto rounded-sm border border-border bg-card">
+        <table className="w-full min-w-[560px] text-left text-sm">
           <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
             <tr>
               <th className="px-5 py-3 font-semibold">Vəzifə</th>

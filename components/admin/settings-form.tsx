@@ -48,17 +48,20 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
           submitted FormData and silently save those tabs' fields as empty. */}
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
-          <TabsList className="h-11 max-w-full gap-1 overflow-x-auto bg-muted p-1">
+          <TabsList className="h-11 max-w-full gap-1 bg-muted p-1">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
                 <TabsTrigger
                   key={tab.value}
                   value={tab.value}
-                  className="gap-1.5 rounded-sm px-3 text-xs font-semibold text-foreground/80 hover:text-foreground data-active:text-foreground sm:text-sm dark:text-foreground/70 dark:hover:text-foreground dark:data-active:text-foreground"
+                  className="gap-1.5 rounded-sm px-2.5 text-xs font-semibold text-foreground/80 hover:text-foreground data-active:text-foreground sm:px-3 sm:text-sm dark:text-foreground/70 dark:hover:text-foreground dark:data-active:text-foreground"
                 >
                   <Icon className="size-3.5" />
-                  {tab.label}
+                  {/* Label hidden below sm: — 4 tabs with text don't fit a
+                      375px screen without cramped truncation or horizontal
+                      scroll; icons alone are recognizable and compact. */}
+                  <span className="hidden sm:inline">{tab.label}</span>
                 </TabsTrigger>
               );
             })}
