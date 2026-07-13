@@ -49,7 +49,7 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
                 <TabsTrigger
                   key={tab.value}
                   value={tab.value}
-                  className="h-9 gap-1.5 rounded-sm px-3 text-xs font-semibold sm:text-sm"
+                  className="h-9 gap-1.5 rounded-sm px-3 text-xs font-semibold text-foreground/80 hover:text-foreground data-active:text-foreground sm:text-sm dark:text-foreground/70 dark:hover:text-foreground dark:data-active:text-foreground"
                 >
                   <Icon className="size-3.5" />
                   {tab.label}
