@@ -3,7 +3,8 @@ import { prisma } from "@/lib/db";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { ProjectForm } from "@/components/admin/project-form";
 import { updateProject } from "@/app/admin/actions/projects";
-import type { Project, ImageAsset, LocalizedText, ProjectMilestone } from "@/lib/types";
+import { getProjects } from "@/lib/repo/projects";
+import { getLocalized, type Project, type ImageAsset, type LocalizedText, type ProjectMilestone } from "@/lib/types";
 
 export default async function EditProjectPage({
   params,
@@ -37,10 +38,15 @@ export default async function EditProjectPage({
     relatedProjectSlugs: row.relatedProjectSlugs,
   };
 
+  const projects = await getProjects();
+  const relatedOptions = projects
+    .filter((p) => p.slug !== row.slug)
+    .map((p) => ({ slug: p.slug, title: getLocalized(p.title, "en") }));
+
   return (
     <div>
       <AdminPageHeader title="Layihəni redaktə et" description={row.slug} />
-      <ProjectForm project={project} action={updateProject.bind(null, id)} />
+      <ProjectForm project={project} action={updateProject.bind(null, id)} relatedOptions={relatedOptions} />
     </div>
   );
 }

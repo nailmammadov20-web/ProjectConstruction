@@ -1,23 +1,58 @@
 "use client";
 
+import * as React from "react";
 import { useActionState } from "react";
 import { Input } from "@/components/ui/input";
-import { Field, LocalizedTextField, JsonField, ImageField } from "@/components/admin/form-fields";
+import { Field, LocalizedTextField, ImageField } from "@/components/admin/form-fields";
+import { GalleryRepeater } from "@/components/admin/gallery-repeater";
+import { LocalizedListRepeater } from "@/components/admin/localized-list-repeater";
+import { ProjectMilestoneRepeater } from "@/components/admin/project-milestone-repeater";
+import { TagInput } from "@/components/admin/tag-input";
+import { RelatedProjectsPicker } from "@/components/admin/related-projects-picker";
 import { SubmitButton } from "@/components/admin/submit-button";
+import { cn } from "@/lib/utils";
 import { sectors } from "@/lib/repo/projects";
-import type { Project } from "@/lib/types";
+import type { Project, Locale } from "@/lib/types";
 
 type ActionState = { error?: string };
 type ProjectAction = (state: ActionState, formData: FormData) => Promise<ActionState>;
 
-export function ProjectForm({ project, action }: { project?: Project; action: ProjectAction }) {
+const localeLabels: Record<Locale, string> = { en: "English", az: "Azərbaycan", ru: "Русский" };
+
+export function ProjectForm({
+  project,
+  action,
+  relatedOptions,
+}: {
+  project?: Project;
+  action: ProjectAction;
+  relatedOptions: { slug: string; title: string }[];
+}) {
   const [state, formAction] = useActionState(action, {});
+  const [activeLocale, setActiveLocale] = React.useState<Locale>("en");
 
   return (
     <form action={formAction} className="space-y-8">
       {state.error && (
         <p className="rounded-sm bg-destructive/10 px-4 py-3 text-sm text-destructive">{state.error}</p>
       )}
+
+      <div className="flex items-center justify-end gap-1 rounded-sm border border-border bg-card p-1 sm:w-fit">
+        {(["en", "az", "ru"] as Locale[]).map((loc) => (
+          <button
+            key={loc}
+            type="button"
+            onClick={() => setActiveLocale(loc)}
+            className={cn(
+              "rounded-sm px-2.5 py-1.5 text-xs font-bold tracking-wide transition-colors cursor-pointer",
+              activeLocale === loc ? "bg-gold-500 text-navy-900" : "text-muted-foreground hover:text-foreground",
+            )}
+            title={localeLabels[loc]}
+          >
+            {loc.toUpperCase()}
+          </button>
+        ))}
+      </div>
 
       <section className="rounded-sm border border-border bg-card p-6">
         <h2 className="text-sm font-bold uppercase tracking-wide text-muted-foreground">Əsas məlumat</h2>
@@ -47,13 +82,13 @@ export function ProjectForm({ project, action }: { project?: Project; action: Pr
           </Field>
         </div>
         <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <LocalizedTextField name="title" label="Başlıq" defaultValue={project?.title} />
-          <LocalizedTextField name="location" label="Yer" defaultValue={project?.location} />
-          <LocalizedTextField name="client" label="Sifarişçi" defaultValue={project?.client} />
-          <LocalizedTextField name="scope" label="Əhatə dairəsi" defaultValue={project?.scope} />
+          <LocalizedTextField name="title" label="Başlıq" defaultValue={project?.title} activeLocale={activeLocale} onActiveLocaleChange={setActiveLocale} />
+          <LocalizedTextField name="location" label="Yer" defaultValue={project?.location} activeLocale={activeLocale} onActiveLocaleChange={setActiveLocale} />
+          <LocalizedTextField name="client" label="Sifarişçi" defaultValue={project?.client} activeLocale={activeLocale} onActiveLocaleChange={setActiveLocale} />
+          <LocalizedTextField name="scope" label="Əhatə dairəsi" defaultValue={project?.scope} activeLocale={activeLocale} onActiveLocaleChange={setActiveLocale} />
         </div>
         <div className="mt-5">
-          <LocalizedTextField name="summary" label="Qısa xülasə" defaultValue={project?.summary} multiline />
+          <LocalizedTextField name="summary" label="Qısa xülasə" defaultValue={project?.summary} multiline activeLocale={activeLocale} onActiveLocaleChange={setActiveLocale} />
         </div>
         <label className="mt-5 flex items-center gap-2 text-sm font-medium">
           <input type="checkbox" name="featured" defaultChecked={project?.featured} className="size-4 accent-gold-500" />
@@ -67,60 +102,84 @@ export function ProjectForm({ project, action }: { project?: Project; action: Pr
           <ImageField name="heroImage" label="Əsas şəkil (Hero)" defaultValue={project?.heroImage} />
           <ImageField name="beforeImage" label="Əvvəl şəkli (könüllü)" defaultValue={project?.beforeImage} required={false} />
           <ImageField name="afterImage" label="Sonra şəkli (könüllü)" defaultValue={project?.afterImage} required={false} />
+          <div className="border-t border-border pt-5">
+            <GalleryRepeater
+              name="gallery_json"
+              label="Qalereya"
+              defaultValue={project?.gallery ?? []}
+              hint="Layihə qalereyasına şəkil əlavə edin — URL yapışdırın və ya birbaşa yükləyin."
+            />
+          </div>
         </div>
       </section>
 
       <section className="rounded-sm border border-border bg-card p-6">
-        <h2 className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
-          Ətraflı məzmun (JSON formatında)
-        </h2>
+        <h2 className="text-sm font-bold uppercase tracking-wide text-muted-foreground">Layihə Təsviri</h2>
         <div className="mt-5 space-y-5">
-          <JsonField
-            name="gallery_json"
-            label="Qalereya"
-            defaultValue={project?.gallery}
-            hint='[{"src":"https://...","alt":"...","width":1200,"height":900}]'
-          />
-          <JsonField
+          <LocalizedListRepeater
             name="overview_json"
             label="Ümumi baxış (paraqraflar)"
-            defaultValue={project?.overview}
-            hint='[{"en":"...","az":"...","ru":"..."}]'
+            defaultValue={project?.overview ?? []}
+            hint="Hər paraqraf ayrı kart kimi əlavə olunur."
+            activeLocale={activeLocale}
+            onActiveLocaleChange={setActiveLocale}
+            addLabel="Paraqraf əlavə et"
           />
-          <JsonField
-            name="challenges_json"
-            label="Çətinliklər"
-            defaultValue={project?.challenges}
-            hint='[{"en":"...","az":"...","ru":"..."}]'
-          />
-          <JsonField
-            name="solutions_json"
-            label="Həllər"
-            defaultValue={project?.solutions}
-            hint='[{"en":"...","az":"...","ru":"..."}]'
-          />
-          <JsonField
+          <div className="border-t border-border pt-5">
+            <LocalizedListRepeater
+              name="challenges_json"
+              label="Çətinliklər"
+              defaultValue={project?.challenges ?? []}
+              activeLocale={activeLocale}
+              onActiveLocaleChange={setActiveLocale}
+              addLabel="Çətinlik əlavə et"
+              emptyLabel="Hələ çətinlik əlavə edilməyib."
+            />
+          </div>
+          <div className="border-t border-border pt-5">
+            <LocalizedListRepeater
+              name="solutions_json"
+              label="Həllər"
+              defaultValue={project?.solutions ?? []}
+              activeLocale={activeLocale}
+              onActiveLocaleChange={setActiveLocale}
+              addLabel="Həll əlavə et"
+              emptyLabel="Hələ həll əlavə edilməyib."
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-sm border border-border bg-card p-6">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-muted-foreground">Xronologiya</h2>
+        <div className="mt-5">
+          <ProjectMilestoneRepeater
             name="timeline_json"
-            label="Xronologiya"
-            defaultValue={project?.timeline}
-            hint='[{"date":{"en":"Q1 2021"},"label":{"en":"..."}}]'
+            label="Layihə mərhələləri"
+            defaultValue={project?.timeline ?? []}
+            activeLocale={activeLocale}
+            onActiveLocaleChange={setActiveLocale}
           />
-          <Field label="Texnologiyalar" htmlFor="technologies" hint="vergüllə ayırın: BIM, Drone Survey, ...">
-            <Input
-              id="technologies"
-              name="technologies"
-              defaultValue={project?.technologies?.join(", ")}
-              className="mt-2 rounded-sm"
-            />
-          </Field>
-          <Field label="Əlaqəli layihələr (slug)" htmlFor="relatedProjectSlugs" hint="vergüllə ayırın">
-            <Input
-              id="relatedProjectSlugs"
-              name="relatedProjectSlugs"
-              defaultValue={project?.relatedProjectSlugs?.join(", ")}
-              className="mt-2 rounded-sm"
-            />
-          </Field>
+        </div>
+      </section>
+
+      <section className="rounded-sm border border-border bg-card p-6">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-muted-foreground">Əlaqələr</h2>
+        <div className="mt-5 space-y-5">
+          <TagInput
+            name="technologies"
+            label="Texnologiyalar"
+            defaultValue={project?.technologies ?? []}
+            hint="Yazıb Enter basın (məs. BIM, Drone Survey)."
+            placeholder="Texnologiya yazın..."
+          />
+          <RelatedProjectsPicker
+            name="relatedProjectSlugs"
+            label="Əlaqəli layihələr"
+            options={relatedOptions}
+            defaultValue={project?.relatedProjectSlugs ?? []}
+            hint="Bu layihə ilə əlaqəli göstəriləcək digər layihələri seçin."
+          />
         </div>
       </section>
 
