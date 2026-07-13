@@ -66,6 +66,29 @@ export function Navbar({
     { href: "/careers", label: t("careers") },
   ];
 
+  function isActive(href: string) {
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
+
+  const servicesActive = isActive("/services");
+  const projectsActive = isActive("/projects");
+
+  function navItemClasses(active: boolean) {
+    return cn(
+      "relative px-4 py-2 text-sm font-medium transition-colors after:absolute after:inset-x-4 after:-bottom-[7px] after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-gold-500 after:transition-transform after:duration-200 after:content-['']",
+      active && "after:scale-x-100",
+      transparent
+        ? cn(
+            "text-white/90 hover:text-white hover:bg-white/10 focus:bg-white/10",
+            active && "text-white",
+          )
+        : cn(
+            "text-foreground/90 hover:text-foreground",
+            active && "text-foreground",
+          ),
+    );
+  }
+
   return (
     <header
       className={cn(
@@ -112,10 +135,14 @@ export function Navbar({
             <NavigationMenuItem>
               <NavigationMenuTrigger
                 className={cn(
-                  "bg-transparent text-sm font-medium",
+                  "relative bg-transparent text-sm font-medium after:absolute after:inset-x-4 after:-bottom-[7px] after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-gold-500 after:transition-transform after:duration-200 after:content-['']",
+                  servicesActive && "after:scale-x-100",
                   transparent
-                    ? "text-white/90 hover:text-white data-[state=open]:text-white"
-                    : "text-foreground/90",
+                    ? cn(
+                        "text-white/90 hover:text-white hover:bg-white/10 focus:bg-white/10 data-popup-open:bg-white/10 data-popup-open:hover:bg-white/10 data-open:bg-white/10 data-open:hover:bg-white/10 data-open:focus:bg-white/10 data-[state=open]:text-white",
+                        servicesActive && "text-white",
+                      )
+                    : cn("text-foreground/90", servicesActive && "text-foreground"),
                 )}
               >
                 {t("services")}
@@ -158,10 +185,7 @@ export function Navbar({
             <NavigationMenuItem>
               <NavigationMenuLink
                 render={<Link href="/projects" />}
-                className={cn(
-                  "px-4 py-2 text-sm font-medium transition-colors",
-                  transparent ? "text-white/90 hover:text-white" : "text-foreground/90 hover:text-foreground",
-                )}
+                className={navItemClasses(projectsActive)}
               >
                 {t("projects")}
               </NavigationMenuLink>
@@ -171,10 +195,7 @@ export function Navbar({
               <NavigationMenuItem key={link.href}>
                 <NavigationMenuLink
                   render={<Link href={link.href} />}
-                  className={cn(
-                    "px-4 py-2 text-sm font-medium transition-colors",
-                    transparent ? "text-white/90 hover:text-white" : "text-foreground/90 hover:text-foreground",
-                  )}
+                  className={navItemClasses(isActive(link.href))}
                 >
                   {link.label}
                 </NavigationMenuLink>
@@ -228,14 +249,19 @@ export function Navbar({
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-1 overflow-y-auto px-3 py-4">
-                <MobileLink href="/services" onNavigate={() => setMobileOpen(false)}>
+                <MobileLink href="/services" active={servicesActive} onNavigate={() => setMobileOpen(false)}>
                   {t("services")}
                 </MobileLink>
-                <MobileLink href="/projects" onNavigate={() => setMobileOpen(false)}>
+                <MobileLink href="/projects" active={projectsActive} onNavigate={() => setMobileOpen(false)}>
                   {t("projects")}
                 </MobileLink>
                 {navLinks.map((link) => (
-                  <MobileLink key={link.href} href={link.href} onNavigate={() => setMobileOpen(false)}>
+                  <MobileLink
+                    key={link.href}
+                    href={link.href}
+                    active={isActive(link.href)}
+                    onNavigate={() => setMobileOpen(false)}
+                  >
                     {link.label}
                   </MobileLink>
                 ))}
@@ -273,20 +299,27 @@ export function Navbar({
 function MobileLink({
   href,
   children,
+  active = false,
   onNavigate,
 }: {
   href: string;
   children: React.ReactNode;
+  active?: boolean;
   onNavigate: () => void;
 }) {
   return (
     <Link
       href={href}
       onClick={onNavigate}
-      className="flex items-center justify-between rounded-sm px-3 py-3 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+      className={cn(
+        "flex items-center justify-between rounded-sm border-l-2 px-3 py-3 text-sm font-medium transition-colors",
+        active
+          ? "border-gold-500 bg-muted text-gold-600"
+          : "border-transparent text-foreground hover:bg-muted",
+      )}
     >
       {children}
-      <ChevronRight className="size-4 text-muted-foreground" />
+      <ChevronRight className={cn("size-4", active ? "text-gold-500" : "text-muted-foreground")} />
     </Link>
   );
 }
