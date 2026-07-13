@@ -60,7 +60,7 @@ export default async function HomePage({
       <ProjectsTeaser projects={getFeaturedProjects(projects)} />
       <StatsBand settings={settings} projectsCount={projects.length} />
       <ProcessSection />
-      <QualityTeaser certificates={certificates} />
+      <QualityTeaser certificates={certificates} settings={settings} />
       <TestimonialsSection />
       <PartnersSection />
       <NewsTeaser articles={newsArticles} />

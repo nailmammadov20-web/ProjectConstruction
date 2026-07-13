@@ -1,25 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components/section-title";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
-import type { Certificate } from "@/lib/types";
-import { placeholderImage } from "@/lib/images";
+import { getLocalized, type Certificate, type Locale, type SiteSettings } from "@/lib/types";
 import { ArrowRight, Award } from "lucide-react";
 
-export function QualityTeaser({ certificates }: { certificates: Certificate[] }) {
+export function QualityTeaser({ certificates, settings }: { certificates: Certificate[]; settings: SiteSettings }) {
   const t = useTranslations("home");
   const tCommon = useTranslations("common");
-  const image = placeholderImage("quality-teaser", 1400, 1000, "Safety officer inspecting a site with a checklist");
+  const locale = useLocale() as Locale;
 
   return (
     <section className="section-padding overflow-hidden">
       <div className="container-wide grid grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-20">
         <div>
-          <SectionTitle eyebrow={t("qualityEyebrow")} title={t("qualityTitle")} body={t("qualityBody")} />
+          <SectionTitle
+            eyebrow={t("qualityEyebrow")}
+            title={getLocalized(settings.qualityTeaserTitle, locale)}
+            body={getLocalized(settings.qualityTeaserBody, locale)}
+          />
 
           <RevealGroup className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-3" stagger={0.06}>
             {certificates.map((cert) => (
@@ -47,7 +50,13 @@ export function QualityTeaser({ certificates }: { certificates: Certificate[] })
 
         <Reveal>
           <div className="relative aspect-[4/3.4] w-full overflow-hidden rounded-sm">
-            <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
+            <Image
+              src={settings.qualityTeaserImage.src}
+              alt={settings.qualityTeaserImage.alt}
+              fill
+              sizes="(min-width: 1024px) 45vw, 90vw"
+              className="object-cover"
+            />
           </div>
         </Reveal>
       </div>

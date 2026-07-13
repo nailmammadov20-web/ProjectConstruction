@@ -246,6 +246,35 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
         </TabsContent>
 
         <TabsContent value="quality" keepMounted className="mt-6 space-y-5">
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wide text-gold-600">
+              Ana Səhifə — &ldquo;Keyfiyyət və Təhlükəsizlik&rdquo; Bölməsi
+            </h3>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Sertifikat kartları &ldquo;Sertifikatlar&rdquo; bölməsindən idarə olunur — bura yalnız başlıq, mətn və şəkil daxildir.
+            </p>
+          </div>
+          <LocalizedTextField
+            name="qualityTeaserTitle"
+            label="Başlıq"
+            defaultValue={settings.qualityTeaserTitle}
+            multiline
+            activeLocale={activeLocale}
+            onActiveLocaleChange={setActiveLocale}
+          />
+          <LocalizedTextField
+            name="qualityTeaserBody"
+            label="Mətn"
+            defaultValue={settings.qualityTeaserBody}
+            multiline
+            activeLocale={activeLocale}
+            onActiveLocaleChange={setActiveLocale}
+          />
+          <ImageField name="qualityTeaserImage" label="Şəkil" defaultValue={settings.qualityTeaserImage} />
+
+          <div className="border-t border-border pt-5">
+            <h3 className="text-xs font-bold uppercase tracking-wide text-gold-600">Keyfiyyət və Təhlükəsizlik Səhifəsi</h3>
+          </div>
           <LocalizedTextField
             name="hseBody"
             label="HSE Siyasəti"

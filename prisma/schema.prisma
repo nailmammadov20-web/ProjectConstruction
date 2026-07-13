@@ -204,6 +204,9 @@ model SiteSettings {
   hseBody           Json
   qualityPolicyBody Json
   environmentBody   Json
+  qualityTeaserTitle Json @default("{}")
+  qualityTeaserBody  Json @default("{}")
+  qualityTeaserImage Json @default("{}")
   safetyLtifr       Float    @default(0.15)
   safetyManHours    Float    @default(4.2)
   safetyAuditedPct  Int      @default(100)

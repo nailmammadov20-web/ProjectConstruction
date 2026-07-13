@@ -286,6 +286,17 @@ async function main() {
         az: "Biz bütün əməliyyatlarımızda məsuliyyətli resurs idarəetməsi, tullantıların azaldılması və davamlı tikinti metodları vasitəsilə ətraf mühitə təsiri minimuma endiririk.",
         ru: "Мы минимизируем воздействие на окружающую среду за счёт ответственного управления ресурсами, сокращения отходов и устойчивых методов строительства во всех наших операциях.",
       },
+      qualityTeaserTitle: {
+        en: "Certified. Audited. Uncompromising.",
+        az: "Sertifikatlaşdırılmış. Auditdən keçmiş. Güzəştsiz.",
+        ru: "Сертифицировано. Проверено. Без компромиссов.",
+      },
+      qualityTeaserBody: {
+        en: "Our integrated management systems are certified to ISO 9001, ISO 14001 and ISO 45001, underpinned by a zero-harm safety culture.",
+        az: "İnteqrasiya olunmuş idarəetmə sistemlərimiz ISO 9001, ISO 14001 və ISO 45001 standartlarına uyğun sertifikatlaşdırılıb və sıfır zərər təhlükəsizlik mədəniyyəti ilə dəstəklənir.",
+        ru: "Наши интегрированные системы менеджмента сертифицированы по ISO 9001, ISO 14001 и ISO 45001 и подкреплены культурой нулевого травматизма.",
+      },
+      qualityTeaserImage: placeholderImage("quality-teaser", 1400, 1000, "Safety officer inspecting a site with a checklist"),
       safetyLtifr: 0.15,
       safetyManHours: 4.2,
       safetyAuditedPct: 100,

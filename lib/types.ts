@@ -200,6 +200,9 @@ export type SiteSettings = {
   hseBody: LocalizedText;
   qualityPolicyBody: LocalizedText;
   environmentBody: LocalizedText;
+  qualityTeaserTitle: LocalizedText;
+  qualityTeaserBody: LocalizedText;
+  qualityTeaserImage: ImageAsset;
   safetyLtifr: number;
   safetyManHours: number;
   safetyAuditedPct: number;
