@@ -42,6 +42,9 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
         <p className="mb-5 rounded-sm bg-destructive/10 px-4 py-3 text-sm text-destructive">{state.error}</p>
       )}
 
+      {/* All TabsContent panels below use keepMounted: Base UI unmounts inactive
+          panels by default, which would drop their hidden inputs from the
+          submitted FormData and silently save those tabs' fields as empty. */}
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
           <TabsList className="h-11 max-w-full gap-1 overflow-x-auto bg-muted p-1">
@@ -80,7 +83,7 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
           </div>
         </div>
 
-        <TabsContent value="hero" className="mt-6 space-y-5">
+        <TabsContent value="hero" keepMounted className="mt-6 space-y-5">
           <LocalizedTextField
             name="heroEyebrow"
             label="Üst yazı (eyebrow)"
@@ -142,7 +145,7 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
           </p>
         </TabsContent>
 
-        <TabsContent value="about" className="mt-6 space-y-5">
+        <TabsContent value="about" keepMounted className="mt-6 space-y-5">
           <LocalizedTextField
             name="aboutIntro"
             label="Giriş mətni"
@@ -185,7 +188,7 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
           </div>
         </TabsContent>
 
-        <TabsContent value="ceo" className="mt-6 space-y-5">
+        <TabsContent value="ceo" keepMounted className="mt-6 space-y-5">
           <Field label="Ad Soyad" htmlFor="ceoName">
             <Input id="ceoName" name="ceoName" defaultValue={settings.ceoName} required className="mt-2 rounded-sm" />
           </Field>
@@ -207,7 +210,7 @@ export function SettingsForm({ settings, action }: { settings: SiteSettings; act
           <ImageField name="ceoPhoto" label="Foto" defaultValue={settings.ceoPhoto} />
         </TabsContent>
 
-        <TabsContent value="quality" className="mt-6 space-y-5">
+        <TabsContent value="quality" keepMounted className="mt-6 space-y-5">
           <LocalizedTextField
             name="hseBody"
             label="HSE Siyasəti"
