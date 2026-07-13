@@ -2,10 +2,15 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
-import { readLocalized } from "@/lib/admin-form-utils";
+import { readLocalized, readJson } from "@/lib/admin-form-utils";
+import type { LocalizedText } from "@/lib/types";
 
 function buildData(formData: FormData) {
+  const experienceLevel = readLocalized(formData, "experienceLevel");
+  const deadline = String(formData.get("applicationDeadline") ?? "").trim();
+
   return {
     slug: String(formData.get("slug") ?? "").trim(),
     title: readLocalized(formData, "title"),
@@ -13,6 +18,10 @@ function buildData(formData: FormData) {
     location: readLocalized(formData, "location"),
     type: readLocalized(formData, "type"),
     summary: readLocalized(formData, "summary"),
+    responsibilities: readJson<LocalizedText[]>(formData, "responsibilities_json", []),
+    requirements: readJson<LocalizedText[]>(formData, "requirements_json", []),
+    experienceLevel: experienceLevel?.en ? experienceLevel : Prisma.JsonNull,
+    applicationDeadline: deadline ? new Date(deadline) : null,
     isOpen: formData.get("isOpen") === "on",
   };
 }

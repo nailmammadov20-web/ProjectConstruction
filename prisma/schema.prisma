@@ -109,17 +109,21 @@ model Partner {
 }
 
 model JobOpening {
-  id         String   @id @default(cuid())
-  slug       String   @unique
-  title      Json
-  department String
-  location   Json
-  type       Json
-  summary    Json
-  isOpen     Boolean  @default(true)
-  order      Int      @default(0)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id                  String    @id @default(cuid())
+  slug                String    @unique
+  title               Json
+  department          String
+  location            Json
+  type                Json
+  summary             Json
+  responsibilities    Json      @default("[]")
+  requirements        Json      @default("[]")
+  experienceLevel     Json?
+  applicationDeadline DateTime?
+  isOpen              Boolean   @default(true)
+  order               Int       @default(0)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 }
 
 model ContactSubmission {

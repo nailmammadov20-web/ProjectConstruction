@@ -197,7 +197,16 @@
     "cultureTitle": "Наша культура",
     "applyNow": "Откликнуться",
     "noOpenings": "Сейчас в этом отделе нет открытых вакансий — отправьте нам своё резюме, и мы свяжемся с вами.",
-    "formTitle": "Отправьте заявку"
+    "formTitle": "Отправьте заявку",
+    "detailEyebrow": "Вакансия",
+    "keyFacts": "Ключевые факты",
+    "responsibilities": "Обязанности",
+    "requirements": "Требования",
+    "department": "Отдел",
+    "type": "Тип занятости",
+    "experienceLevel": "Опыт",
+    "deadline": "Крайний срок подачи",
+    "viewPosition": "Смотреть вакансию"
   },
   "contact": {
     "eyebrow": "Контакты",

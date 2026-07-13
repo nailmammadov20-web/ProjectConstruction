@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { getLocalized } from "@/lib/types";
 import type { JobOpening } from "@/lib/types";
@@ -67,12 +68,12 @@ export function PositionsList({ jobOpenings }: { jobOpenings: JobOpening[] }) {
                   </span>
                 </div>
               </div>
-              <a
-                href="#apply"
+              <Link
+                href={`/careers/${job.slug}`}
                 className="flex shrink-0 items-center gap-1.5 text-sm font-semibold text-gold-600 hover:text-gold-700"
               >
-                {t("applyNow")} <ArrowRight className="size-4" />
-              </a>
+                {t("viewPosition")} <ArrowRight className="size-4" />
+              </Link>
             </div>
           ))}
         </div>

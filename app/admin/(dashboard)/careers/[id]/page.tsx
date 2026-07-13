@@ -21,6 +21,10 @@ export default async function EditJobOpeningPage({
     location: row.location as unknown as LocalizedText,
     type: row.type as unknown as LocalizedText,
     summary: row.summary as unknown as LocalizedText,
+    responsibilities: row.responsibilities as unknown as LocalizedText[],
+    requirements: row.requirements as unknown as LocalizedText[],
+    experienceLevel: (row.experienceLevel as unknown as LocalizedText | null) ?? undefined,
+    applicationDeadline: row.applicationDeadline?.toISOString() ?? undefined,
     isOpen: row.isOpen,
   };
 

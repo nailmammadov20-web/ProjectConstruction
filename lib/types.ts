@@ -136,6 +136,10 @@ export type JobOpening = {
   location: LocalizedText;
   type: LocalizedText;
   summary: LocalizedText;
+  responsibilities: LocalizedText[];
+  requirements: LocalizedText[];
+  experienceLevel?: LocalizedText;
+  applicationDeadline?: string;
 };
 
 export type Office = {

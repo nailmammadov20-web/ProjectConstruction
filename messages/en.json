@@ -197,7 +197,16 @@
     "cultureTitle": "Our Culture",
     "applyNow": "Apply Now",
     "noOpenings": "No open positions in this department right now — send us your CV and we'll be in touch.",
-    "formTitle": "Submit Your Application"
+    "formTitle": "Submit Your Application",
+    "detailEyebrow": "Vacancy",
+    "keyFacts": "Key Facts",
+    "responsibilities": "Responsibilities",
+    "requirements": "Requirements",
+    "department": "Department",
+    "type": "Employment Type",
+    "experienceLevel": "Experience",
+    "deadline": "Application Deadline",
+    "viewPosition": "View Position"
   },
   "contact": {
     "eyebrow": "Contact",

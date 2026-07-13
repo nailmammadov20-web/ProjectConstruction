@@ -97,6 +97,17 @@ export const jobOpenings: JobOpening[] = [
     location: { en: "Baku, Azerbaijan" },
     type: { en: "Full-time" },
     summary: { en: "Lead site engineering delivery on a major commercial high-rise project, coordinating structural and MEP works." },
+    responsibilities: [
+      { en: "Supervise daily site engineering activities across structural and MEP trades." },
+      { en: "Coordinate with design consultants to resolve site queries and drawing clashes." },
+      { en: "Enforce quality control and method-statement compliance on site." },
+    ],
+    requirements: [
+      { en: "Bachelor's degree in Civil Engineering or a related field." },
+      { en: "5+ years of site engineering experience on commercial or high-rise projects." },
+      { en: "Working knowledge of BIM coordination workflows." },
+    ],
+    experienceLevel: { en: "5+ years" },
   },
   {
     slug: "bim-coordinator",
@@ -105,6 +116,17 @@ export const jobOpenings: JobOpening[] = [
     location: { en: "Baku, Azerbaijan" },
     type: { en: "Full-time" },
     summary: { en: "Manage federated BIM models and clash detection workflows across multiple concurrent projects." },
+    responsibilities: [
+      { en: "Maintain federated BIM models and run clash-detection cycles." },
+      { en: "Set and enforce BIM execution plans across project teams." },
+      { en: "Support drone survey and digital twin data capture on active sites." },
+    ],
+    requirements: [
+      { en: "Proficiency in Revit, Navisworks and common clash-detection tools." },
+      { en: "3+ years of experience in a BIM coordination role." },
+      { en: "Understanding of ISO 19650 information management principles." },
+    ],
+    experienceLevel: { en: "3-5 years" },
   },
   {
     slug: "hse-advisor",
@@ -113,6 +135,17 @@ export const jobOpenings: JobOpening[] = [
     location: { en: "Ganja, Azerbaijan" },
     type: { en: "Full-time" },
     summary: { en: "Support site-based safety inspections, training and incident investigation on infrastructure projects." },
+    responsibilities: [
+      { en: "Conduct routine site safety inspections and audits." },
+      { en: "Deliver toolbox talks and safety induction training." },
+      { en: "Investigate incidents and near-misses, and track corrective actions." },
+    ],
+    requirements: [
+      { en: "NEBOSH General Certificate or equivalent." },
+      { en: "2+ years of HSE experience on construction or infrastructure sites." },
+      { en: "Fluent in Azerbaijani; working English is an advantage." },
+    ],
+    experienceLevel: { en: "2+ years" },
   },
   {
     slug: "quantity-surveyor",
@@ -121,6 +154,17 @@ export const jobOpenings: JobOpening[] = [
     location: { en: "Baku, Azerbaijan" },
     type: { en: "Full-time" },
     summary: { en: "Deliver cost planning, tendering and post-contract cost control across a portfolio of commercial projects." },
+    responsibilities: [
+      { en: "Prepare cost plans, bills of quantities and tender packages." },
+      { en: "Manage subcontractor valuations and variations." },
+      { en: "Report on project cost performance against budget." },
+    ],
+    requirements: [
+      { en: "Bachelor's degree in Quantity Surveying or Construction Economics." },
+      { en: "4+ years of post-contract cost management experience." },
+      { en: "Strong command of measurement standards (SMM7/NRM)." },
+    ],
+    experienceLevel: { en: "4+ years" },
   },
   {
     slug: "project-planner",
@@ -129,6 +173,17 @@ export const jobOpenings: JobOpening[] = [
     location: { en: "Remote / Regional" },
     type: { en: "Full-time" },
     summary: { en: "Develop and maintain resourced master programmes for infrastructure and industrial projects." },
+    responsibilities: [
+      { en: "Build and maintain resourced master programmes in Primavera P6." },
+      { en: "Track progress and produce delay/impact analyses." },
+      { en: "Coordinate programme inputs from site and design teams." },
+    ],
+    requirements: [
+      { en: "Proficiency in Primavera P6 and MS Project." },
+      { en: "3+ years of planning experience on infrastructure or industrial projects." },
+      { en: "Ability to work across distributed regional project teams." },
+    ],
+    experienceLevel: { en: "3+ years" },
   },
   {
     slug: "graduate-civil-engineer",
@@ -137,6 +192,17 @@ export const jobOpenings: JobOpening[] = [
     location: { en: "Baku, Azerbaijan" },
     type: { en: "Graduate Programme" },
     summary: { en: "Join our two-year graduate rotation programme across structural, civil and site engineering teams." },
+    responsibilities: [
+      { en: "Rotate across structural, civil and site engineering teams over two years." },
+      { en: "Support design coordination and site inspection tasks under senior guidance." },
+      { en: "Complete structured training modules toward chartership." },
+    ],
+    requirements: [
+      { en: "Recent Bachelor's or Master's degree in Civil Engineering." },
+      { en: "Strong academic record and eagerness to learn on-site." },
+      { en: "Willingness to relocate across regional project sites during rotations." },
+    ],
+    experienceLevel: { en: "Graduate / 0-1 years" },
   },
 ];
 

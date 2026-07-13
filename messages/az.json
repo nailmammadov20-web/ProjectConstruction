@@ -197,7 +197,16 @@
     "cultureTitle": "Mədəniyyətimiz",
     "applyNow": "İndi Müraciət Et",
     "noOpenings": "Hazırda bu departamentdə açıq vakansiya yoxdur — CV-nizi göndərin, sizinlə əlaqə saxlayacağıq.",
-    "formTitle": "Müraciətinizi Göndərin"
+    "formTitle": "Müraciətinizi Göndərin",
+    "detailEyebrow": "Vakansiya",
+    "keyFacts": "Əsas Məlumat",
+    "responsibilities": "Vəzifə Öhdəlikləri",
+    "requirements": "Tələblər",
+    "department": "Departament",
+    "type": "Məşğulluq Növü",
+    "experienceLevel": "Təcrübə",
+    "deadline": "Son Müraciət Tarixi",
+    "viewPosition": "Vakansiyaya Bax"
   },
   "contact": {
     "eyebrow": "Əlaqə",
