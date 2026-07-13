@@ -18,7 +18,7 @@ export function AboutTeaser({ settings }: { settings: SiteSettings }) {
     <section className="section-padding overflow-hidden">
       <div className="container-wide grid grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-20">
         <Reveal className="relative">
-          <div className="relative aspect-[4/5] w-full max-w-md overflow-hidden rounded-sm">
+          <div className="relative aspect-[16/10] w-full max-w-md overflow-hidden rounded-sm sm:aspect-[4/5]">
             <Image
               src={settings.aboutTeaserImage1.src}
               alt={settings.aboutTeaserImage1.alt}
