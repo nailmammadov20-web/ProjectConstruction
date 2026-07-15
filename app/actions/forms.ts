@@ -7,6 +7,7 @@ import { createJobApplication } from "@/lib/repo/applications";
 
 const applicationSubmissionSchema = applicationFormSchema.extend({
   resumeFileName: z.string().optional(),
+  resumeUrl: z.string().optional(),
 });
 
 export async function submitContactForm(values: unknown) {

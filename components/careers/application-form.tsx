@@ -19,7 +19,8 @@ import {
 } from "@/components/ui/select";
 import { getLocalized, type Locale, type JobOpening } from "@/lib/types";
 import { submitApplicationForm } from "@/app/actions/forms";
-import { Loader2, UploadCloud } from "lucide-react";
+import { uploadResume } from "@/app/actions/upload-resume";
+import { Loader2, UploadCloud, CheckCircle2 } from "lucide-react";
 
 export function ApplicationForm({
   jobOpenings,
@@ -32,6 +33,9 @@ export function ApplicationForm({
   const tCareers = useTranslations("careers");
   const locale = useLocale() as Locale;
   const [fileName, setFileName] = React.useState<string | null>(null);
+  const [resumeUrl, setResumeUrl] = React.useState<string | null>(null);
+  const [uploading, setUploading] = React.useState(false);
+  const [uploadError, setUploadError] = React.useState<string | null>(null);
 
   const {
     register,
@@ -50,8 +54,33 @@ export function ApplicationForm({
     },
   });
 
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setFileName(file.name);
+    setResumeUrl(null);
+    setUploadError(null);
+    setUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+    const result = await uploadResume(formData);
+    setUploading(false);
+
+    if ("error" in result) {
+      setUploadError(result.error);
+      setFileName(null);
+    } else {
+      setResumeUrl(result.url);
+    }
+  }
+
   async function onSubmit(values: ApplicationFormValues) {
-    const result = await submitApplicationForm({ ...values, resumeFileName: fileName ?? undefined });
+    const result = await submitApplicationForm({
+      ...values,
+      resumeFileName: fileName ?? undefined,
+      resumeUrl: resumeUrl ?? undefined,
+    });
     if (!result.success) {
       toast.error(t("error"));
       return;
@@ -59,6 +88,7 @@ export function ApplicationForm({
     toast.success(t("success"));
     reset();
     setFileName(null);
+    setResumeUrl(null);
   }
 
   return (
@@ -122,20 +152,27 @@ export function ApplicationForm({
       <div>
         <Label className="text-sm font-medium">{t("resume")}</Label>
         <label className="mt-2 flex cursor-pointer items-center justify-center gap-2 rounded-sm border border-dashed border-border bg-muted/40 px-4 py-6 text-sm text-muted-foreground transition-colors hover:border-gold-500/50">
-          <UploadCloud className="size-4" />
-          {fileName ?? "PDF, DOC — max 10MB"}
+          {uploading ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : resumeUrl ? (
+            <CheckCircle2 className="size-4 text-green-600" />
+          ) : (
+            <UploadCloud className="size-4" />
+          )}
+          {uploading ? "Yüklənir..." : (fileName ?? "PDF, DOC — max 10MB")}
           <input
             type="file"
             accept=".pdf,.doc,.docx"
             className="hidden"
-            onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+            onChange={handleFileChange}
           />
         </label>
+        {uploadError && <p className="mt-1.5 text-xs text-destructive">{uploadError}</p>}
       </div>
 
       <Button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || uploading}
         size="lg"
         className="w-full rounded-sm bg-gold-500 text-navy-900 hover:bg-gold-400"
       >

@@ -146,6 +146,7 @@ model JobApplication {
   position       String
   message        String
   resumeFileName String?
+  resumeUrl      String?
   status         String   @default("new")
   createdAt      DateTime @default(now())
 }

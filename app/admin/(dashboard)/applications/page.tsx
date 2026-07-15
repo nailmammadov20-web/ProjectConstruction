@@ -41,7 +41,21 @@ export default async function AdminApplicationsPage() {
             </div>
             <p className="mt-4 text-sm leading-relaxed text-foreground/85">{application.message}</p>
             {application.resumeFileName && (
-              <p className="mt-2 text-xs text-muted-foreground">CV faylı: {application.resumeFileName}</p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                CV faylı:{" "}
+                {application.resumeUrl ? (
+                  <a
+                    href={application.resumeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-gold-600 underline underline-offset-2 hover:text-gold-700"
+                  >
+                    {application.resumeFileName}
+                  </a>
+                ) : (
+                  <span>{application.resumeFileName} (yüklənməyib — köhnə müraciət)</span>
+                )}
+              </p>
             )}
           </div>
         ))}

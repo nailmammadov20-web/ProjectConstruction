@@ -8,10 +8,13 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     return new Response("Not found", { status: 404 });
   }
 
+  const encodedName = encodeURIComponent(asset.filename);
+
   return new Response(new Uint8Array(asset.data), {
     headers: {
       "Content-Type": asset.mimeType,
       "Content-Length": String(asset.size),
+      "Content-Disposition": `inline; filename="${encodedName}"; filename*=UTF-8''${encodedName}`,
       "Cache-Control": "public, max-age=31536000, immutable",
     },
   });

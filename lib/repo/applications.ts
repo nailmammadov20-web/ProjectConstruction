@@ -7,6 +7,7 @@ export type JobApplicationInput = {
   position: string;
   message: string;
   resumeFileName?: string;
+  resumeUrl?: string;
 };
 
 export async function createJobApplication(input: JobApplicationInput) {
