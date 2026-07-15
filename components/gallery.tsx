@@ -62,18 +62,28 @@ function LightboxDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ startIndex, loop: true });
+  const [current, setCurrent] = React.useState(startIndex);
+
+  React.useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => setCurrent(emblaApi.selectedScrollSnap());
+    emblaApi.on("select", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
+  }, [emblaApi]);
 
   return (
     <Dialog open onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton
-        className="max-w-5xl border-none bg-navy-950 p-0 sm:rounded-sm"
+        className="max-w-6xl border-none bg-navy-950 p-0 sm:max-w-6xl sm:rounded-sm"
       >
         <DialogTitle className="sr-only">Image gallery</DialogTitle>
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {images.map((image, index) => (
-              <div key={image.src + index} className="relative aspect-video min-w-0 shrink-0 grow-0 basis-full">
+              <div key={image.src + index} className="relative h-[60vh] min-w-0 shrink-0 grow-0 basis-full sm:h-[80vh]">
                 <Image
                   src={image.src}
                   alt={image.alt}
@@ -85,20 +95,27 @@ function LightboxDialog({
             ))}
           </div>
         </div>
-        <button
-          aria-label="Previous image"
-          onClick={() => emblaApi?.scrollPrev()}
-          className="absolute left-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20 cursor-pointer"
-        >
-          <ChevronLeft className="size-5" />
-        </button>
-        <button
-          aria-label="Next image"
-          onClick={() => emblaApi?.scrollNext()}
-          className="absolute right-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20 cursor-pointer"
-        >
-          <ChevronRight className="size-5" />
-        </button>
+        {images.length > 1 && (
+          <>
+            <button
+              aria-label="Previous image"
+              onClick={() => emblaApi?.scrollPrev()}
+              className="absolute left-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20 cursor-pointer"
+            >
+              <ChevronLeft className="size-5" />
+            </button>
+            <button
+              aria-label="Next image"
+              onClick={() => emblaApi?.scrollNext()}
+              className="absolute right-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20 cursor-pointer"
+            >
+              <ChevronRight className="size-5" />
+            </button>
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur">
+              {current + 1} / {images.length}
+            </div>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );
