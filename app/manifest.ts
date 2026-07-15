@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "International construction, engineering and project management group.",
     start_url: "/",
     display: "standalone",
-    background_color: "#F8FAFC",
-    theme_color: "#0F172A",
+    background_color: "#FBF8F5",
+    theme_color: "#2E1B10",
     icons: [
       { src: "/favicon.ico", sizes: "any", type: "image/x-icon" },
       { src: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
